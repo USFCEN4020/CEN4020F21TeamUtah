@@ -38,16 +38,6 @@ def select_all_jobs():
 
 # retrieves username of logged in person
 
-
-def get_user():
-    query = """SELECT username FROM Username WHERE logedin = 1"""
-    c.execute(query)
-    conn.commit()
-    tuple = c.fetchone()
-    # print(type(tuple))
-    return tuple
-#
-
 #
 # Query for posting a job and creating a new job tables if it has not being created yet
 
