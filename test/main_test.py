@@ -1,8 +1,8 @@
 import pytest
 import sqlite3
 from typing import Union
-from test.context import main, main_menu
-from test.utils import add_user
+from .context import main, main_menu
+from .utils import add_user
 
 """
 Beginning of tests for sprint #1
