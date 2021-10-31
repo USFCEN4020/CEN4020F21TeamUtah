@@ -1,5 +1,5 @@
 import sqlite3
-from .db_session import db
+from db_session import db
 
 
 conn = db

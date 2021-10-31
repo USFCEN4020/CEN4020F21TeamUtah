@@ -1,4 +1,4 @@
-from src.main import main
+from .context import main
 from .context import main_menu
 import pytest
 

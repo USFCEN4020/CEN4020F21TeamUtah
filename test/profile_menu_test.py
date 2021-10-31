@@ -1,4 +1,3 @@
-from . import main_test
 from .context import profile_menu, main
 from .utils import add_user, get_mock_db
 from .context import db_session

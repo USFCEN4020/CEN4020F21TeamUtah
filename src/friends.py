@@ -1,5 +1,5 @@
-from .db_session import db
-from .main_menu import get_user
+from db_session import db
+from user_utils import get_user
 from typing import Optional
 
 conn = db
