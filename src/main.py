@@ -8,24 +8,6 @@ from main_menu import find_deleted_appl, main_menu
 conn = db
 c = conn.cursor()
 
-# creates new table for usernames and passwords
-
-
-def create_table():
-    query = """CREATE TABLE IF NOT EXISTS Username(
-    username TEXT PRIMARY KEY,
-    password TEXT,
-    firstname TEXT,
-    lastname TEXT,
-    logedin NOT NULL CHECK (logedin IN (0, 1)) DEFAULT 0,
-    applnumber INTEGER DEFAULT 0,
-    email BOOLEAN NOT NULL CHECK (email IN (0, 1)) DEFAULT 1,
-    sms BOOLEAN NOT NULL CHECK (sms IN (0, 1)) DEFAULT 1,
-    marketing BOOLEAN NOT NULL CHECK (marketing IN (0, 1)) DEFAULT 1,
-    language TEXT DEFAULT 'english'
-);"""
-    c.execute(query)
-    conn.commit()
 
 # inserts login info from user into table
 
