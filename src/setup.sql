@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS Username(
     email BOOLEAN NOT NULL CHECK (email IN (0, 1)) DEFAULT 1,
     sms BOOLEAN NOT NULL CHECK (sms IN (0, 1)) DEFAULT 1,
     marketing BOOLEAN NOT NULL CHECK (marketing IN (0, 1)) DEFAULT 1,
+    isPlus BOOLEAN NOT NULL CHECK (isPlus IN (0, 1)),
     language TEXT DEFAULT 'english'
 );
 
