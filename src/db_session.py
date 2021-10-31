@@ -4,8 +4,8 @@ from typing import Optional
 from pathlib import Path
 
 # constants
-DB_PATH: str = "Username.db"
-DB_SETUP_PATH: str = "setup.sql"
+DB_PATH = "Username.db"
+DB_SETUP_PATH = (Path(__file__).parent / "./setup.sql").resolve()
 
 # globals
 db: Optional[sqlite3.Connection] = None
@@ -33,7 +33,7 @@ def create_tables(db):
     cursor = db.cursor()
 
     # Initialize database with setup file
-    with open(Path(DB_SETUP_PATH).absolute(), 'r') as file:
+    with open(DB_SETUP_PATH, 'r') as file:
         setup_queries = file.read()
     cursor.executescript(setup_queries)
 
