@@ -10,17 +10,14 @@ c = conn.cursor()
 
 
 # inserts login info from user into table
-
-
-def data_entry(username, password, firstname, lastname, logedin):
-    query = """INSERT INTO Username (username, password,firstname,lastname, logedin) VALUES(?,?,?,?,?);"""
-    data = (username, password, firstname, lastname, logedin)
+def data_entry(username, password, firstname, lastname, logedin, isPlus):
+    query = """INSERT INTO Username (username, password,firstname,lastname, logedin, isPlus) VALUES(?,?,?,?,?,?);"""
+    data = (username, password, firstname, lastname, logedin, isPlus)
     c.execute(query, data)
     conn.commit()
 
+
 # function to check if the username is unique when creating an account
-
-
 def look_value(username):
     username2 = username
     target = (username,)
@@ -161,19 +158,20 @@ def usefulllinks():
 
 
 def createnewacc():
-    create_table()
     capacity = number_rows()
     if capacity < 10:
         print("\n")
         print("Please input a unique username and password")
         username = input("Username: ")
+        username2 = look_value(username)
         first_name = input("first name: ")
         last_name = input("last name: ")
-        username2 = look_value(username)
         password = getpass()
-        logedin = 0
         check_pw(password)
-        data_entry(username2, password, first_name, last_name, logedin)
+        isPlus = input(
+            "Do you want to be a plus member? It will cost $10 each month (y/n) ").strip() == "y"
+        logedin = 0
+        data_entry(username2, password, first_name, last_name, logedin, isPlus)
     elif capacity == 10:
         print("The amount of allowed accounts (10) has been reached")
 
