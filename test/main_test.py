@@ -43,13 +43,6 @@ def run_around_tests() -> None:
     # teardown
 
 
-def test_create_table() -> None:
-    main.create_table()
-    cursor: sqlite3.Cursor = test_db.cursor()
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-    assert cursor.fetchall() == [('Username',)]
-
-
 def test_data_entry() -> None:
     add_user(test_db)
     main.data_entry(SAMPLE_USERNAME, SAMPLE_PASSWORD, SAMPLE_FIRSTNAME, SAMPLE_LASTNAME, 0)
