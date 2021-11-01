@@ -1,6 +1,7 @@
-from menu import Menu
-from messages_utils import get_conversations, get_messages, send_message, delete_messages
-from user_utils import get_user, is_plus, get_friends, get_all_users
+from utils.menu import Menu
+from utils.messages import get_conversations, get_messages, send_message, delete_messages
+from utils.user import get_user, is_plus, get_all_users
+from utils.friends import get_friends
 import datetime
 
 

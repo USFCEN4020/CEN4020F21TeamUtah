@@ -4,30 +4,19 @@ from sqlite3.dbapi2 import complete_statement
 from links_menu import LinksMenu
 from profile_menu import ProfileMenu
 from friends import read_friend_requests
-from user_utils import get_user
+from utils.jobs import get_all_jobs, job_entry, number_job_rows, apply_job_entry, increase_app_count
+from utils.user import get_user
 from messages_menu import MessagesMenu
 
 conn = sqlite3.connect('Username.db')
 c = conn.cursor()
 
 
-def number_job_rows():
-    query = """SELECT * FROM Jobs"""
-    c.execute(query)
-    conn.commit()
-    rows = len(c.fetchall())
-    # print("The number of rows is ", rows)
-    return rows
-
 # For ICU-36 sprint 6 - function to print all jobs in the table
 
 
 def select_all_jobs():
-    query = """SELECT * FROM Jobs"""
-    c.execute(query)
-    conn.commit()
-
-    for i in c.fetchall():
+    for i in get_all_jobs():
         count = 1
         print("Job #" + count)
         print("Title: " + i[1])
@@ -37,53 +26,12 @@ def select_all_jobs():
         print("Salary: " + i[5])
         count = +1
 
-# retrieves username of logged in person
-
-#
-# Query for posting a job and creating a new job tables if it has not being created yet
-
-
-def job_entry(username, title, description, employer, location, salary):
-
-    data = (username, title, description, employer, location, salary)
-    query = """INSERT INTO Jobs(username,title,description,employer,location,salary) VAlUES(?,?,?,?,?,?);"""
-    c.execute(query, data)
-    conn.commit()
-
-# FOR ICU-35 SPRINT 6 we implement job deletion
-
-
-def job_deletion(username, title, description, employer, location, salary):
-    data = (username, title, description, employer, location, salary)
-    query = """DELETE Jobs(username,title,description,employer,location,salary) VAlUES(?,?,?,?,?,?);"""
-    c.execute(query, data)
-    conn.commit()
-
 
 def get_user_selection():
     selection_text = input("Please make a choice from the menu: ")
     return int(selection_text)
 
 # FOR ICU-34 SPRINT 6 created for inserting applications for all users
-
-
-def apply_job_entry(username, title, grad_date, entry_date, description):
-    data = (username, title, grad_date, entry_date, description)
-    query = """INSERT INTO Applications(username, title, grad_date, entry_date, description) VALUES(?,?,?,?,?)"""
-    c.execute(query, data)
-    conn.commit()
-
-
-def increase_app_count():
-    user = get_user()
-    query = """SELECT applnumber FROM Username WHERE username = ?;"""
-    c.execute(query, user)
-    conn.commit()
-    app_count = c.fetchone() + 1
-    query = """UPDATE Username SET applnumber = ? WHERE username = ?;"""
-    data = (app_count, user)
-    c.execute(query, data)
-    conn.commit()
 
 
 def find_deleted_appl():
@@ -171,7 +119,7 @@ def job_intern_menu():
                     # FOR ICU-34 SPRINT 6 "The entered information will be stored in a way that associates it with the job that has been applied for"
                     apply_job_entry(user, title, grad_date,
                                     start_date, description)
-                    increase_app_count()
+                    increase_app_count(user)
 
         # FOR ICU-35 SPRINT 6 implement deletion of items that the user has not posted himself
         elif selection == 3:

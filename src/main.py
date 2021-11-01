@@ -4,42 +4,21 @@ from getpass import getpass
 from links_menu import LinksMenu
 from db_session import db
 from main_menu import find_deleted_appl, main_menu
+from utils.user import create_user, is_user, get_user_count
+from utils.auth import login, are_credentials_valid
 
 conn = db
 c = conn.cursor()
 
 
-# inserts login info from user into table
-def data_entry(username, password, firstname, lastname, logedin, isPlus):
-    query = """INSERT INTO Username (username, password,firstname,lastname, logedin, isPlus) VALUES(?,?,?,?,?,?);"""
-    data = (username, password, firstname, lastname, logedin, isPlus)
-    c.execute(query, data)
-    conn.commit()
-
-
 # function to check if the username is unique when creating an account
 def look_value(username):
-    username2 = username
-    target = (username,)
-    query = """SELECT * FROM Username WHERE username = ?;"""
-    c.execute(query, target)
-    conn.commit()
-    tuples = c.fetchall()
-    while len(tuples) > 0:
+    while is_user(username):
         print("Username already exist.")
-        username2 = input("Username: ")
-        target = (username2,)
-        c.execute(query, target)
-        conn.commit()
-        tuples = c.fetchall()
-    if len(tuples) == 0 and username == username2:
-        return username
-    elif len(tuples) == 0 and username != username2:
-        return username2
+        username = input("Username: ")
+
 
 # function to check that all passwords meet the required criteria
-
-
 def check_pw(password):
     Capital = False
     digit = False
@@ -71,17 +50,6 @@ def check_pw(password):
             password = getpass()
             check_pw(password)
 
-# function to check the amount of accounts that have been created
-
-
-def number_rows():
-    query = """SELECT * FROM Username"""
-    c.execute(query)
-    conn.commit()
-    rows = len(c.fetchall())
-    #print("The number of rows is ", rows)
-    return rows
-
 
 def find_in_db(first_name, last_name):
 
@@ -90,27 +58,6 @@ def find_in_db(first_name, last_name):
             print("They are a part of the InCollege system")
             return
     print("They are not yet a part of the InCollege system yet")
-
-# function to login into the program for user that have already created an account
-
-
-def login_attempt(username, password):
-    query = """SELECT * FROM Username WHERE username = ? AND password = ?;"""
-    data = (username, password)
-    c.execute(query, data)
-    conn.commit()
-    tuple = c.fetchall()
-
-    return len(tuple) != 0
-
-# function that changes logedin value in order to know what user is logedin
-
-
-def login(username):
-    query = """UPDATE Username SET logedin = 1 WHERE username = ?"""
-    target = (username,)
-    c.execute(query, target)
-    conn.commit()
 
 
 def general():
@@ -158,7 +105,7 @@ def usefulllinks():
 
 
 def createnewacc():
-    capacity = number_rows()
+    capacity = get_user_count()
     if capacity < 10:
         print("\n")
         print("Please input a unique username and password")
@@ -171,7 +118,8 @@ def createnewacc():
         isPlus = input(
             "Do you want to be a plus member? It will cost $10 each month (y/n) ").strip() == "y"
         logedin = 0
-        data_entry(username2, password, first_name, last_name, logedin, isPlus)
+        create_user(username2, password, first_name,
+                    last_name, logedin, isPlus)
     elif capacity == 10:
         print("The amount of allowed accounts (10) has been reached")
 
@@ -224,10 +172,9 @@ def main():
         elif choice == 'l':
             username = input("Username: ")
             password = getpass()
-            isLoggedIn = login_attempt(username, password)
+            isLoggedIn = are_credentials_valid(username, password)
 
             if isLoggedIn:
-
                 login(username)
                 print("You have successfully logged in")
                 find_deleted_appl()
