@@ -51,3 +51,9 @@ CREATE TABLE IF NOT EXISTS Education(
     degree TEXT,
     yearsAttended INTEGER
 )
+
+CREATE TABLE IF NOT EXISTS Friends(
+    userOne TEXT, 
+    userRequested TEXT, 
+    request INTEGER
+)
