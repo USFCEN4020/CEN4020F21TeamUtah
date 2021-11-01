@@ -75,3 +75,35 @@ def get_conversations(user):
         conversations.add(other_person)
 
     return conversations
+
+
+def get_unread_message_count(user):
+    query = """
+        SELECT COUNT(isRead) FROM Messages
+        WHERE receiver = ? 
+            AND isRead = 0;
+    """
+
+    data = (user, )
+
+    with closing(db.cursor()) as cursor:
+        cursor.execute(query, data)
+        row = cursor.fetchone()
+
+        return row[0]
+
+
+def set_message_read(messages):
+    query = """
+        UPDATE Messages
+        SET isRead = 1
+        WHERE rowid = ?
+    """
+    cursor = db.cursor()
+
+    for message in messages:
+        data = (message, )
+        cursor.execute(query, data)
+
+    db.commit()
+    cursor.close()
