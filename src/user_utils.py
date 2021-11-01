@@ -10,7 +10,7 @@ def get_user():
     conn.commit()
     tuple = c.fetchone()
     # print(type(tuple))
-    return tuple
+    return tuple[0]
 
 
 def is_plus(user):
