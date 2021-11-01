@@ -1,5 +1,5 @@
 from utils.menu import Menu
-from utils.messages import get_conversations, get_messages, send_message, delete_messages
+from utils.messages import get_conversations, get_messages, send_message, delete_messages, set_message_read
 from utils.user import get_user, is_plus, get_all_users
 from utils.friends import get_friends
 import datetime
@@ -82,5 +82,7 @@ class ConversationMenu(Menu):
 
             entry = f"From {sender} at {timestamp.strftime(format)}: {content}\n"
             message_lines += entry
+
+        set_message_read(message[0] for message in self.messages)
 
         return message_lines + "\n"
