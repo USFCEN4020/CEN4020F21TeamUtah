@@ -29,3 +29,8 @@ CREATE TABLE IF NOT EXISTS Messages(
     content TEXT,
     timestamp INTEGER DEFAULT (CAST(strftime('%s','now') AS INT)) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS DeletedMessages(
+    user TEXT,
+    messageId INTEGER
+)
