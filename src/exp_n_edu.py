@@ -1,29 +1,10 @@
 import sqlite3
 from db_session import db
+from user_utils import get_user
 
 
 conn = db
 c = conn.cursor()
-
-#creates a username table and inserts sample data for testing functionality of file
-# def testing_data_entry():
-#     query = """CREATE TABLE IF NOT EXISTS Username(username TEXT, password TEXT,firstname TEXT, lastname TEXT, logedin INTEGER)"""
-#     c.execute(query)
-#     conn.commit()
-#
-#     query2 = """INSERT INTO Username(username, password,firstname,lastname, logedin) VALUES(?,?,?,?,?);"""
-#     data = ("Sample", "Sample", "Sample", "Sample", 1)
-#     c.execute(query2, data)
-#     conn.commit()
-
-
-#retrieves username of logged in person
-def get_user():
-    query = """SELECT * FROM Username WHERE logedin = 1"""
-    c.execute(query)
-    conn.commit()
-    tuple = c.fetchone()
-    return tuple[0]  # need to actually return the username and not the tuple
 
 
 #creates a table to store experience of user
