@@ -42,10 +42,10 @@ def get_messages(participant1, participant2):
 
     query = """
         SELECT messageId FROM DeletedMessages
-        WHERE user = ? or user = ?
+        WHERE user = ?
     """
 
-    data = (participant1, participant2)
+    data = (participant1, )
 
     cursor.execute(query, data)
 
