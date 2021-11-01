@@ -11,20 +11,15 @@ DB_SETUP_PATH = (Path(__file__).parent / "./setup.sql").resolve()
 db: Optional[sqlite3.Connection] = None
 
 
-def db_init(clean: bool = False) -> sqlite3.Connection:
+def get_db() -> sqlite3.Connection:
     """
-    create a database and initialize tables
-    :param clean: if true delete any existing database
+    create a database
     :return: connection to the database
     """
     global db
-    if clean and os.path.isfile(Path(DB_PATH)):
-        os.remove(DB_PATH)
 
-    # create database
-    db = sqlite3.connect(DB_PATH)
-
-    create_tables(db)
+    if db == None:
+        db = sqlite3.connect(DB_PATH)
 
     return db
 
@@ -39,6 +34,3 @@ def create_tables(db):
 
     db.commit()
     return db
-
-
-db_init()
