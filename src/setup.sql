@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS Messages(
 CREATE TABLE IF NOT EXISTS DeletedMessages(
     user TEXT,
     messageId INTEGER
-)
+);
 
 CREATE TABLE IF NOT EXISTS Experience(
     username TEXT, 
@@ -43,17 +43,17 @@ CREATE TABLE IF NOT EXISTS Experience(
     endDate TEXT, 
     location TEXT, 
     description TEXT
-)
+);
 
 CREATE TABLE IF NOT EXISTS Education(
     username TEXT,
     schoolName TEXT,
     degree TEXT,
     yearsAttended INTEGER
-)
+);
 
 CREATE TABLE IF NOT EXISTS Friends(
     userOne TEXT, 
     userRequested TEXT, 
     request INTEGER
-)
+);
