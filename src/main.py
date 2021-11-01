@@ -3,8 +3,9 @@ from getpass import getpass
 from links_menu import LinksMenu
 from db.db import get_db, create_tables
 from main_menu import find_deleted_appl, main_menu
-from utils.user import create_user, is_user, get_user_count
+from utils.user import create_user, is_user, get_user_count, get_user
 from utils.auth import login, are_credentials_valid
+from utils.messages import get_unread_message_count
 
 conn = get_db()
 create_tables(conn)
@@ -124,6 +125,14 @@ def createnewacc():
         print("The amount of allowed accounts (10) has been reached")
 
 
+def notify_unread_messages():
+    user = get_user()
+    unread_message_count = get_unread_message_count(user)
+
+    if unread_message_count != 0:
+        print(f"You have {unread_message_count} unread messages\n")
+
+
 # CHOICE IS A CHAR THAT HELPS NAVIGATE THROUGH THE PROGRAM MENU
 def main():
     choice = '?'
@@ -176,6 +185,7 @@ def main():
 
             if isLoggedIn:
                 login(username)
+                notify_unread_messages()
                 print("You have successfully logged in")
                 find_deleted_appl()
                 main_menu()
