@@ -248,6 +248,7 @@ optionsAndActions = [
     ("View/Edit Profile", ProfileMenu().run),
     ("Job/Internship Search", job_intern_menu),
     ("Find Someone You Know", None),
+    ("Messages", MessagesMenu().run),
     ("Learn a New Skill", learn_skills_menu),
     ("InCollege Important links", LinksMenu().run),
     ("Log Out", logout)
