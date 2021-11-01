@@ -1,10 +1,10 @@
 import sqlite3
-from .context import db_session
+from .context import db
 
 
 def get_mock_db():
     mock_db = sqlite3.connect(':memory:')
-    db_session.create_tables(mock_db)
+    db.create_tables(mock_db)
 
     return mock_db
 

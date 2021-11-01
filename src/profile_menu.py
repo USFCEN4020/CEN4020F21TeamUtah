@@ -1,8 +1,11 @@
 from utils.menu import Menu
-from db_session import db
+from utils.db import get_db
 from exp_n_edu import exp_n_edu_menu
 from typing import Optional, Tuple
 from columnar import columnar
+
+
+db = get_db()
 
 
 class ProfileMenu(Menu):

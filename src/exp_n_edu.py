@@ -1,11 +1,10 @@
-import sqlite3
-from db_session import db
+from utils.db import get_db
 from utils.user import get_user
 from utils.education import edu_entry
 from utils.experience import exp_entry, count_exp_entries
 
 
-conn = db
+conn = get_db()
 c = conn.cursor()
 
 

@@ -1,6 +1,7 @@
-import sqlite3
+from .db import get_db
 
-conn = sqlite3.connect('Username.db')
+
+conn = get_db()
 c = conn.cursor()
 
 

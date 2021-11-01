@@ -1,6 +1,5 @@
 from .context import profile_menu, main
-from .utils import add_user, get_mock_db
-from .context import db_session
+from .utils import get_mock_db
 import pytest
 
 from test import utils

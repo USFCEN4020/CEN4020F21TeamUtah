@@ -1,6 +1,4 @@
-from .context import main
 from .context import main_menu
-import pytest
 
 
 def assert_invalid_selection(selection, capsys):

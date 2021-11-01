@@ -1,4 +1,3 @@
-import pytest
 from .context import links_menu
 
 

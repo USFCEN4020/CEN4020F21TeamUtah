@@ -1,9 +1,9 @@
-from db_session import db
+from utils.db import get_db
 from utils.user import get_user
 from utils.friends import get_friends, delete_friend, get_friend_requests
 from typing import Optional
 
-conn = db
+conn = get_db()
 c = conn.cursor()
 
 

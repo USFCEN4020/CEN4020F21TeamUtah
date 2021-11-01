@@ -1,5 +1,7 @@
-from db_session import db
+from .db import get_db
 from contextlib import closing
+
+db = get_db()
 
 
 def send_message(sender, receiver, content):

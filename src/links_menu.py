@@ -1,7 +1,9 @@
 from utils.menu import Menu
 from typing import Optional
-from db_session import db
+from utils.db import get_db
 from colorama import Fore, Style
+
+db = get_db()
 
 
 class LinksMenu(Menu):

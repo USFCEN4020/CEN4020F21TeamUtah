@@ -1,7 +1,7 @@
-from db_session import db
+from .db import get_db
 
 
-conn = db
+conn = get_db()
 c = conn.cursor()
 
 
