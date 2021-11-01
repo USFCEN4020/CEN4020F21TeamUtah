@@ -20,17 +20,17 @@ def search_for_user():
         if(choice == 1):
             lastName = input("Enter a student's last name: ")
             query = """SELECT username FROM Username WHERE lastname = ?"""
-            c.execute(query, lastName)
+            c.execute(query, (lastName,))
             result: Optional[tuple] = c.fetchone()
         elif(choice == 2):
             university = input("Enter a student's university: ")
             query = """SELECT username FROM Profile WHERE universityName = ?"""
-            c.execute(query, university)
+            c.execute(query, (university,))
             result: Optional[tuple] = c.fetchone()
         elif(choice == 3):
             major = input("Enter a student's major: ")
             query = """SELECT username FROM Profile WHERE major = ?"""
-            c.execute(query, major)
+            c.execute(query, (major,))
             result: Optional[tuple] = c.fetchone()
         elif(choice == 4):
             return
