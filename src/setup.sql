@@ -73,4 +73,4 @@ CREATE TABLE IF NOT EXISTS Applications(
     grad_date TEXT, 
     entry_date TEXT, 
     description TEXT
-)
+);
