@@ -57,3 +57,20 @@ CREATE TABLE IF NOT EXISTS Friends(
     userRequested TEXT, 
     request INTEGER
 );
+
+CREATE TABLE IF NOT EXISTS Jobs(
+    username TEXT, 
+    title TEXT, 
+    description TEXT, 
+    employer TEXT, 
+    location TEXT, 
+    salary REAL
+);
+
+CREATE TABLE IF NOT EXISTS Applications(
+    username TEXT, 
+    title TEXT FOREIGN KEY, 
+    grad_date TEXT, 
+    entry_date TEXT, 
+    description TEXT
+)

@@ -43,12 +43,6 @@ def select_all_jobs():
 # Query for posting a job and creating a new job tables if it has not being created yet
 
 
-def create_job_table():
-    query = """CREATE TABLE IF NOT EXISTS Jobs(username TEXT, title TEXT, description TEXT, employer TEXT, location TEXT, salary REAL)"""
-    c.execute(query)
-    conn.commit()
-
-
 def job_entry(username, title, description, employer, location, salary):
 
     data = (username, title, description, employer, location, salary)
@@ -73,14 +67,7 @@ def get_user_selection():
 # FOR ICU-34 SPRINT 6 created for inserting applications for all users
 
 
-def create_apply_table():
-    query = """CREATE TABLE IF NOT EXISTS Applications(username TEXT, title TEXT FOREIGN KEY, grad_date TEXT, entry_date TEXT, description TEXT)"""
-    c.execute(query)
-    conn.commit()
-
-
 def apply_job_entry(username, title, grad_date, entry_date, description):
-    create_apply_table()
     data = (username, title, grad_date, entry_date, description)
     query = """INSERT INTO Applications(username, title, grad_date, entry_date, description) VALUES(?,?,?,?,?)"""
     c.execute(query, data)
@@ -137,7 +124,6 @@ def job_intern_menu():
 """)
         selection = get_user_selection()
         if selection == 1:
-            create_job_table()
             jobs_posted = number_job_rows()
             # FOR ICU-35 SPRINT 6  "The number of job listings that the system can support will be increased to ten"
             if jobs_posted == 10:
