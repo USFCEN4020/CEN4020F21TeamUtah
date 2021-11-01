@@ -5,6 +5,7 @@ from links_menu import LinksMenu
 from profile_menu import ProfileMenu
 from friends import read_friend_requests
 from user_utils import get_user
+from messages_menu import MessagesMenu
 
 conn = sqlite3.connect('Username.db')
 c = conn.cursor()
@@ -149,7 +150,6 @@ def job_intern_menu():
             location = input("Location: ")
             salary = input("Salary: ")
 
-
             username = get_user()
             job_entry(username, job_title, job_description,
                       employer, location, salary)
@@ -157,7 +157,8 @@ def job_intern_menu():
         # implemented for ICU-36 sprint 6
         elif selection == 2:
             # apply for a job
-            job_select = input(int(print("Choose the number of the job you want to apply to: ")))
+            job_select = input(
+                int(print("Choose the number of the job you want to apply to: ")))
             select_all_jobs()
             if job_select > number_job_rows + 1:
                 print("Please select a job in the appropiate range.")
@@ -169,17 +170,21 @@ def job_intern_menu():
                 tp_list = [tuple()]
                 for i in c.fetchall():
                     tp_list.append()
-                
+
                 if tp_list[job_select, 0] == user:
                     print("You cannot apply to a job you created. Please try again.")
                     return
                 else:
-                    title = tp_list[job_select,1]
-                    grad_date = input(str(print("Please enter a graduation date: ")))
-                    start_date = input(str(print("Please enter a start date: ")))
-                    description = input(str(print("Please write a brief paragraph explaining why you think you would be a good fit for the job: ")))
+                    title = tp_list[job_select, 1]
+                    grad_date = input(
+                        str(print("Please enter a graduation date: ")))
+                    start_date = input(
+                        str(print("Please enter a start date: ")))
+                    description = input(str(print(
+                        "Please write a brief paragraph explaining why you think you would be a good fit for the job: ")))
                     # FOR ICU-34 SPRINT 6 "The entered information will be stored in a way that associates it with the job that has been applied for"
-                    apply_job_entry(user,title,grad_date,start_date,description)
+                    apply_job_entry(user, title, grad_date,
+                                    start_date, description)
                     increase_app_count()
 
         # FOR ICU-35 SPRINT 6 implement deletion of items that the user has not posted himself
@@ -195,10 +200,9 @@ def job_intern_menu():
                     print("Employer: " + i[2] + "\n")
                     print("Location: " + i[3] + "\n")
                     print("Salary: " + i[4] + "\n")
- 
 
             selection2 = input(int(print("Which job do you wish to delete?")))
-            select_title = tp_list[selection2,1]
+            select_title = tp_list[selection2, 1]
             query = """DELETE * FROM Jobs WHERE title = ?;"""
             c.execute(query, select_title)
             conn.commit()
@@ -211,6 +215,8 @@ def job_intern_menu():
 #
 
 # MENU SHOWED AFTER SELECTING "LEARN A NEW SKILL"
+
+
 def learn_skills_menu():
     while True:
         print(
@@ -239,8 +245,11 @@ def learn_skills_menu():
             print("Under Construction")
 
 # LOGOUT OPTION THAT SHOULD LEAD TO MENU BEFORE YOU LOGIN
+
+
 def logout():
     print("Thank you for using InCollege!")
+
 
 print()
 # MENU SHOWN AFTER YOU SUCCESFULLY LOGIN
@@ -255,6 +264,8 @@ optionsAndActions = [
 ]
 
 # FUNCTION TO ENUMARATE THE OPTIONS FROM OPTIONS AND ACTIONS 2 DIMENSIONAL ARRAY
+
+
 def print_menu_options():
     options = [
         f"{i + 1} - {x[0]}"
@@ -266,6 +277,8 @@ def print_menu_options():
     print(options_text)
 
 # FUNCTION TO GET THE SELECTION FROM PRINT_MENU_OPTIONS
+
+
 def get_user_action_selection():
     selection = get_user_selection() - 1
 
@@ -284,6 +297,8 @@ def get_user_action_selection():
         print("Invalid selection")
 
 # MAIN MENU FUNCTION THAT CALLS ALL THE OTHER MISCELANIOUS MENU FUNCTIONS
+
+
 def main_menu():
 
     # user = get_user()
