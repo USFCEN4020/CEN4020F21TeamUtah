@@ -47,7 +47,6 @@ def exp_n_edu_menu():
         selection = get_user_selection()
         #add experience
         if selection == 1:
-            create_exp_table()
             user_exp = count_exp_entries()
             #checks if max per user has already been reached
             if user_exp == 3:
@@ -64,7 +63,6 @@ def exp_n_edu_menu():
             exp_entry(username, title, employer, startDate, endDate, location, description)
         #add education
         elif selection == 2:
-            create_edu_table()
             username = get_user()
             schoolName = input("School name: ")
             degree = input("Degree: ")
