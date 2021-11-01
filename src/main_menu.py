@@ -184,22 +184,10 @@ def logout():
     print("Thank you for using InCollege!")
 
 
-print()
-# MENU SHOWN AFTER YOU SUCCESFULLY LOGIN
-optionsAndActions = [
-    ("View/Edit Profile", ProfileMenu().run),
-    ("Job/Internship Search", job_intern_menu),
-    ("Find Someone You Know", None),
-    ("Messages", MessagesMenu().run),
-    ("Learn a New Skill", learn_skills_menu),
-    ("InCollege Important links", LinksMenu().run),
-    ("Log Out", logout)
-]
-
 # FUNCTION TO ENUMARATE THE OPTIONS FROM OPTIONS AND ACTIONS 2 DIMENSIONAL ARRAY
 
 
-def print_menu_options():
+def print_menu_options(optionsAndActions):
     options = [
         f"{i + 1} - {x[0]}"
         for i, x
@@ -212,7 +200,7 @@ def print_menu_options():
 # FUNCTION TO GET THE SELECTION FROM PRINT_MENU_OPTIONS
 
 
-def get_user_action_selection():
+def get_user_action_selection(optionsAndActions):
     selection = get_user_selection() - 1
 
     try:
@@ -234,15 +222,28 @@ def get_user_action_selection():
 
 def main_menu():
 
+    print()
+
+    # MENU SHOWN AFTER YOU SUCCESFULLY LOGIN
+    optionsAndActions = [
+        ("View/Edit Profile", ProfileMenu().run),
+        ("Job/Internship Search", job_intern_menu),
+        ("Find Someone You Know", None),
+        ("Messages", MessagesMenu().run),
+        ("Learn a New Skill", learn_skills_menu),
+        ("InCollege Important links", LinksMenu().run),
+        ("Log Out", logout)
+    ]
+
     # user = get_user()
 
     while True:
         # read_friend_requests(user)
         print("\n")
-        print_menu_options()
+        print_menu_options(optionsAndActions)
         print("\n")
 
-        action = get_user_action_selection()
+        action = get_user_action_selection(optionsAndActions)
 
         if action is not None:
             action()
