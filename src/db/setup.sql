@@ -37,7 +37,8 @@ CREATE TABLE IF NOT EXISTS Messages(
     sender TEXT,
     receiver TEXT,
     content TEXT,
-    timestamp INTEGER DEFAULT (CAST(strftime('%s', 'now') AS INT)) NOT NULL
+    timestamp INTEGER DEFAULT (CAST(strftime('%s', 'now') AS INT)) NOT NULL,
+    isRead BOOLEAN NOT NULL CHECK (isRead IN (0, 1)) DEFAULT 0
 );
 CREATE TABLE IF NOT EXISTS DeletedMessages(user TEXT, messageId INTEGER);
 CREATE TABLE IF NOT EXISTS Experience(
