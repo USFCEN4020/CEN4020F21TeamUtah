@@ -22,3 +22,10 @@ CREATE TABLE IF NOT EXISTS Profile(
 CREATE TABLE IF NOT EXISTS Experience(username TEXT, title TEXT, employer TEXT, startDate TEXT, endDate TEXT, location TEXT, description TEXT);
 
 CREATE TABLE IF NOT EXISTS Education(username TEXT, schoolName TEXT, degree TEXT, yearsAttended INTEGER);
+
+CREATE TABLE IF NOT EXISTS Messages(
+    sender TEXT,
+    receiver TEXT,
+    content TEXT,
+    timestamp INTEGER DEFAULT (CAST(strftime('%s','now') AS INT)) NOT NULL
+);
