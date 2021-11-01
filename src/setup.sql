@@ -44,3 +44,10 @@ CREATE TABLE IF NOT EXISTS Experience(
     location TEXT, 
     description TEXT
 )
+
+CREATE TABLE IF NOT EXISTS Education(
+    username TEXT,
+    schoolName TEXT,
+    degree TEXT,
+    yearsAttended INTEGER
+)

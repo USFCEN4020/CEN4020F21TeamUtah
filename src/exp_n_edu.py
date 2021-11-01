@@ -25,13 +25,6 @@ def count_exp_entries():
     return rows
 
 
-#creates education table
-def create_edu_table():
-    query = """CREATE TABLE IF NOT EXISTS Education(username TEXT, schoolName TEXT, degree TEXT, yearsAttended INTEGER)"""
-    c.execute(query)
-    conn.commit()
-
-
 #inserts data into new row in education table
 def edu_entry(username, schoolName, degree, yearsAttended):
     data = (username, schoolName, degree, yearsAttended)
