@@ -45,7 +45,8 @@ def run_around_tests() -> None:
 
 def test_data_entry() -> None:
     add_user(test_db)
-    main.data_entry(SAMPLE_USERNAME, SAMPLE_PASSWORD, SAMPLE_FIRSTNAME, SAMPLE_LASTNAME, 0)
+    main.data_entry(SAMPLE_USERNAME, SAMPLE_PASSWORD,
+                    SAMPLE_FIRSTNAME, SAMPLE_LASTNAME, 0)
     cursor: sqlite3.Cursor = test_db.cursor()
     query: str = "SELECT * FROM Username WHERE username = ?;"
     cursor.execute(query, (SAMPLE_USERNAME,))
@@ -94,7 +95,8 @@ def test_number_rows() -> None:
     rows: int = main.number_rows()
     assert rows == 1
 
-    add_user(test_db, SAMPLE_UNREGISTERED_USERNAME, SAMPLE_UNREGISTERED_PASSWORD)
+    add_user(test_db, SAMPLE_UNREGISTERED_USERNAME,
+             SAMPLE_UNREGISTERED_PASSWORD)
     rows = main.number_rows()
     assert rows == 2
 
@@ -124,12 +126,14 @@ End of sprint 1 test cases, beginning of sprint 2 cases
 
 
 def test_find_in_db(capsys) -> None:
-    add_user(test_db, SAMPLE_USERNAME, SAMPLE_PASSWORD, SAMPLE_FIRSTNAME, SAMPLE_LASTNAME)
+    add_user(test_db, SAMPLE_USERNAME, SAMPLE_PASSWORD,
+             SAMPLE_FIRSTNAME, SAMPLE_LASTNAME)
     main.find_in_db(SAMPLE_FIRSTNAME, SAMPLE_LASTNAME)
     output = capsys.readouterr()
     assert output.out == "They are a part of the InCollege system\n"
 
-    main.find_in_db(SAMPLE_UNREGISTERED_FIRSTNAME, SAMPLE_UNREGISTERED_LASTNAME)
+    main.find_in_db(SAMPLE_UNREGISTERED_FIRSTNAME,
+                    SAMPLE_UNREGISTERED_LASTNAME)
     output = capsys.readouterr()
     assert output.out == "They are not yet a part of the InCollege system yet\n"
 #

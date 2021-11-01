@@ -57,7 +57,8 @@ def test_search_for_user_by_lastname():
 
 
 def test_search_for_user_by_university():
-    add_profile(mock_db, SAMPLE_FRIEND_USERNAME, SAMPLE_TITLE, SAMPLE_MAJOR, SAMPLE_UNIVERSITY, SAMPLE_ABOUT)
+    add_profile(mock_db, SAMPLE_FRIEND_USERNAME, SAMPLE_TITLE,
+                SAMPLE_MAJOR, SAMPLE_UNIVERSITY, SAMPLE_ABOUT)
     mock_input = ["2", SAMPLE_UNIVERSITY]
     friends.input = lambda _: mock_input.pop(0)
     result = friends.search_for_user()
@@ -65,7 +66,8 @@ def test_search_for_user_by_university():
 
 
 def test_search_for_user_by_major():
-    add_profile(mock_db, SAMPLE_FRIEND_USERNAME, SAMPLE_TITLE, SAMPLE_MAJOR, SAMPLE_UNIVERSITY, SAMPLE_ABOUT)
+    add_profile(mock_db, SAMPLE_FRIEND_USERNAME, SAMPLE_TITLE,
+                SAMPLE_MAJOR, SAMPLE_UNIVERSITY, SAMPLE_ABOUT)
     mock_input = ["3", SAMPLE_MAJOR]
     friends.input = lambda _: mock_input.pop(0)
     result = friends.search_for_user()
@@ -90,7 +92,7 @@ def test_decline_request():
 
 def test_accept_request():
     add_friend(mock_db, SAMPLE_SELF_USERNAME, SAMPLE_FRIEND_USERNAME, 0)
-    friends.accept_request(SAMPLE_SELF_USERNAME,SAMPLE_FRIEND_USERNAME)
+    friends.accept_request(SAMPLE_SELF_USERNAME, SAMPLE_FRIEND_USERNAME)
     query = "SELECT request FROM Friends WHERE userOne= ? AND userRequested= ?"
     cursor.execute(query, (SAMPLE_SELF_USERNAME, SAMPLE_FRIEND_USERNAME))
     assert cursor.fetchone()[0] == 2
@@ -108,4 +110,3 @@ def test_my_friends_list():
     login_user(mock_db, SAMPLE_SELF_USERNAME)
     result = friends.my_friends_list()
     assert result == [SAMPLE_FRIEND_USERNAME]
-

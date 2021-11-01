@@ -6,6 +6,7 @@ from colorama import Fore, Style
 
 class LinksMenu(Menu):
     """inCollege links menu class"""
+
     def __init__(self) -> None:
         super().__init__()
         self.title = "InCollege Important Links"
@@ -111,7 +112,8 @@ class GuestControlsMenu(Menu):
         """write values to database"""
         cursor = db.cursor()
         query: str = "UPDATE Username SET email=?, sms=?, marketing=? WHERE username=?;"
-        cursor.execute(query, (self.has_email, self.has_sms, self.has_marketing, self.username))
+        cursor.execute(query, (self.has_email, self.has_sms,
+                       self.has_marketing, self.username))
         db.commit()
 
     def _toggle_email(self) -> False:
@@ -127,7 +129,7 @@ class GuestControlsMenu(Menu):
     def _toggle_marketing(self):
         self.has_marketing ^= 1
         status = "on" if self.has_marketing else "off"
-        print(f"{Fore.GREEN}Targeted marketing switched {status} {Style.RESET_ALL}\n")        
+        print(f"{Fore.GREEN}Targeted marketing switched {status} {Style.RESET_ALL}\n")
 
     def run(self) -> None:
         self.read_db()
@@ -146,7 +148,8 @@ class LanguagesMenu(Menu):
         self.logedin: Optional[bool] = None
 
         # menu options
-        self.options["English"] = self._set_lang_english  # TODO Joseph 9/29: abstract
+        # TODO Joseph 9/29: abstract
+        self.options["English"] = self._set_lang_english
         self.options["Spanish"] = self._set_lang_spanish
 
     def read_db(self) -> None:

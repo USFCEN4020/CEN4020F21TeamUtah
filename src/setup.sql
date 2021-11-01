@@ -10,67 +10,67 @@ CREATE TABLE IF NOT EXISTS Username(
     isPlus BOOLEAN NOT NULL CHECK (isPlus IN (0, 1)),
     language TEXT DEFAULT 'english'
 );
-
 CREATE TABLE IF NOT EXISTS Profile(
     username TEXT PRIMARY KEY,
-    title TEXT, 
+    title TEXT,
     major TEXT,
     universityName TEXT,
     about TEXT
 );
-
-CREATE TABLE IF NOT EXISTS Experience(username TEXT, title TEXT, employer TEXT, startDate TEXT, endDate TEXT, location TEXT, description TEXT);
-
-CREATE TABLE IF NOT EXISTS Education(username TEXT, schoolName TEXT, degree TEXT, yearsAttended INTEGER);
-
-CREATE TABLE IF NOT EXISTS Messages(
-    sender TEXT,
-    receiver TEXT,
-    content TEXT,
-    timestamp INTEGER DEFAULT (CAST(strftime('%s','now') AS INT)) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS DeletedMessages(
-    user TEXT,
-    messageId INTEGER
-);
-
 CREATE TABLE IF NOT EXISTS Experience(
-    username TEXT, 
-    title TEXT, 
-    employer TEXT, 
-    startDate TEXT, 
-    endDate TEXT, 
-    location TEXT, 
+    username TEXT,
+    title TEXT,
+    employer TEXT,
+    startDate TEXT,
+    endDate TEXT,
+    location TEXT,
     description TEXT
 );
-
 CREATE TABLE IF NOT EXISTS Education(
     username TEXT,
     schoolName TEXT,
     degree TEXT,
     yearsAttended INTEGER
 );
-
+CREATE TABLE IF NOT EXISTS Messages(
+    sender TEXT,
+    receiver TEXT,
+    content TEXT,
+    timestamp INTEGER DEFAULT (CAST(strftime('%s', 'now') AS INT)) NOT NULL
+);
+CREATE TABLE IF NOT EXISTS DeletedMessages(user TEXT, messageId INTEGER);
+CREATE TABLE IF NOT EXISTS Experience(
+    username TEXT,
+    title TEXT,
+    employer TEXT,
+    startDate TEXT,
+    endDate TEXT,
+    location TEXT,
+    description TEXT
+);
+CREATE TABLE IF NOT EXISTS Education(
+    username TEXT,
+    schoolName TEXT,
+    degree TEXT,
+    yearsAttended INTEGER
+);
 CREATE TABLE IF NOT EXISTS Friends(
-    userOne TEXT, 
-    userRequested TEXT, 
+    userOne TEXT,
+    userRequested TEXT,
     request INTEGER
 );
-
 CREATE TABLE IF NOT EXISTS Jobs(
-    username TEXT, 
-    title TEXT, 
-    description TEXT, 
-    employer TEXT, 
-    location TEXT, 
+    username TEXT,
+    title TEXT,
+    description TEXT,
+    employer TEXT,
+    location TEXT,
     salary REAL
 );
-
 CREATE TABLE IF NOT EXISTS Applications(
-    username TEXT, 
-    title TEXT FOREIGN KEY, 
-    grad_date TEXT, 
-    entry_date TEXT, 
+    username TEXT,
+    title TEXT FOREIGN KEY,
+    grad_date TEXT,
+    entry_date TEXT,
     description TEXT
 );

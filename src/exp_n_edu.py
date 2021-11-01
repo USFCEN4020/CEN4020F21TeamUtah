@@ -7,15 +7,16 @@ conn = db
 c = conn.cursor()
 
 
-#inserts data into new row in experience table
+# inserts data into new row in experience table
 def exp_entry(username, title, employer, startDate, endDate, location, description):
-    data = (username, title, employer, startDate, endDate, location, description)
+    data = (username, title, employer, startDate,
+            endDate, location, description)
     query = """INSERT INTO Experience(username,title,employer, startDate, endDate, location, description) VAlUES(?,?,?,?,?,?,?);"""
     c.execute(query, data)
     conn.commit()
 
 
-#returns number of entries for the experience table created by the same user
+# returns number of entries for the experience table created by the same user
 def count_exp_entries():
     query = """SELECT * FROM Experience WHERE username = (SELECT username FROM Username)"""
     c.execute(query)
@@ -25,7 +26,7 @@ def count_exp_entries():
     return rows
 
 
-#inserts data into new row in education table
+# inserts data into new row in education table
 def edu_entry(username, schoolName, degree, yearsAttended):
     data = (username, schoolName, degree, yearsAttended)
     query = """INSERT INTO Education(username, schoolName, degree, yearsAttended) VALUES (?, ?, ?, ?)"""
@@ -33,26 +34,27 @@ def edu_entry(username, schoolName, degree, yearsAttended):
     conn.commit()
 
 
-#returns user selection input
+# returns user selection input
 def get_user_selection():
     selection_text = input("Please make a choice from the menu: ")
     return int(selection_text)
 
 
-#menu that allows for user to add experience and/or education to their profile
+# menu that allows for user to add experience and/or education to their profile
 def exp_n_edu_menu():
-    #testing_data_entry()
+    # testing_data_entry()
     while True:
         print("\n1 - Add experience \n2 - Add education \n3 - Go back \n\n")
         selection = get_user_selection()
-        #add experience
+        # add experience
         if selection == 1:
             user_exp = count_exp_entries()
-            #checks if max per user has already been reached
+            # checks if max per user has already been reached
             if user_exp == 3:
-                print("The maximum amount of experience have been added to your profile. Please come back again later.")
+                print(
+                    "The maximum amount of experience have been added to your profile. Please come back again later.")
                 continue
-            #user-inputted data
+            # user-inputted data
             username = get_user()
             title = input("Job title: ")
             employer = input("Employer: ")
@@ -60,8 +62,9 @@ def exp_n_edu_menu():
             endDate = input("End date: ")
             location = input("Location: ")
             description = input("Description: ")
-            exp_entry(username, title, employer, startDate, endDate, location, description)
-        #add education
+            exp_entry(username, title, employer, startDate,
+                      endDate, location, description)
+        # add education
         elif selection == 2:
             username = get_user()
             schoolName = input("School name: ")
@@ -71,7 +74,6 @@ def exp_n_edu_menu():
         # end loop
         elif selection == 3:
             break
-        #input validation
+        # input validation
         else:
             print("Invalid input. Please make a choice from the menu options.\n")
-
