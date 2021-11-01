@@ -18,6 +18,8 @@ def look_value(username):
         print("Username already exist.")
         username = input("Username: ")
 
+    return username
+
 
 # function to check that all passwords meet the required criteria
 def check_pw(password):
