@@ -43,3 +43,31 @@ def is_user(user):
     tuple = c.fetchone()
 
     return tuple != None
+
+
+def get_friends(user):
+    query = """
+        SELECT userOne, userRequested FROM Friends
+        WHERE (userOne = ? OR userRequested = ?)
+            AND request = 2
+    """
+
+    data = (user, user)
+    c.execute(query, data)
+    rows = c.fetchall()
+
+    friends = set()
+
+    for user_one, user_requested in rows:
+        other_person = user_one if user_one != user else user_requested
+        friends.add(other_person)
+
+    return friends
+
+
+def get_all_users():
+    query = """SELECT username FROM Username"""
+    c.execute(query)
+    rows = c.fetchall()
+
+    return set(row[0] for row in rows)
