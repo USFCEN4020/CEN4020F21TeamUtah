@@ -1,5 +1,5 @@
 from utils.menu import Menu
-from utils.db import get_db
+from db.db import get_db
 from exp_n_edu import exp_n_edu_menu
 from typing import Optional, Tuple
 from columnar import columnar

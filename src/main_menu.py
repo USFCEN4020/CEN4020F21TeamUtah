@@ -4,7 +4,7 @@ from profile_menu import ProfileMenu
 from utils.jobs import get_all_jobs, job_entry, number_job_rows, apply_job_entry, increase_app_count
 from utils.user import get_user
 from messages_menu import MessagesMenu
-from utils.db import get_db
+from db.db import get_db
 
 
 conn = get_db()

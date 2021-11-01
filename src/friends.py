@@ -1,4 +1,4 @@
-from utils.db import get_db
+from db.db import get_db
 from utils.user import get_user
 from utils.friends import get_friends, delete_friend, get_friend_requests
 from typing import Optional

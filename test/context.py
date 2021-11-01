@@ -8,5 +8,5 @@ import main
 import main_menu
 import links_menu
 import profile_menu
-import utils.db as db
+import db.db as db
 import friends

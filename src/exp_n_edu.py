@@ -1,4 +1,4 @@
-from utils.db import get_db
+from db.db import get_db
 from utils.user import get_user
 from utils.education import edu_entry
 from utils.experience import exp_entry, count_exp_entries

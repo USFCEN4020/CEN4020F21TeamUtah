@@ -4,7 +4,7 @@ from pathlib import Path
 
 # constants
 DB_PATH = "Username.db"
-DB_SETUP_PATH = (Path(__file__).parent.parent / "./setup.sql").resolve()
+DB_SETUP_PATH = (Path(__file__).parent / "./setup.sql").resolve()
 
 # globals
 db: Optional[sqlite3.Connection] = None

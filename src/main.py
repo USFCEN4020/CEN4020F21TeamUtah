@@ -1,7 +1,7 @@
 from getpass import getpass
 
 from links_menu import LinksMenu
-from utils.db import get_db, create_tables
+from db.db import get_db, create_tables
 from main_menu import find_deleted_appl, main_menu
 from utils.user import create_user, is_user, get_user_count
 from utils.auth import login, are_credentials_valid

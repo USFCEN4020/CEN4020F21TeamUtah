@@ -1,4 +1,4 @@
-from .db import get_db
+from db.db import get_db
 from contextlib import closing
 
 db = get_db()
