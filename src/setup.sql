@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS Jobs(
 );
 CREATE TABLE IF NOT EXISTS Applications(
     username TEXT,
-    title TEXT FOREIGN KEY,
+    title TEXT,
     grad_date TEXT,
     entry_date TEXT,
     description TEXT
