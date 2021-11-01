@@ -1,6 +1,6 @@
 from menu import Menu
 from messages_utils import get_conversations, get_messages, send_message
-from user_utils import get_user, are_friends, is_plus, is_user
+from user_utils import get_user, is_plus, get_friends, get_all_users
 import datetime
 
 
@@ -23,19 +23,25 @@ class MessagesMenu(Menu):
         self.options["Start new conversation"] = self.on_new_conversation
 
     def on_new_conversation(self):
+        options = self.get_recipient_options()
+
+        print("You can send a message to:\n")
+        for option in options:
+            print(option)
+
         while True:
             receiver = input("Who are you sending the message to? ")
 
-            if is_user(receiver):
+            if receiver in options:
                 break
 
-            print("This is not a valid user.")
-
-        if not is_plus(self.user) and not are_friends(self.user, receiver):
-            print("Sorry, you are not friends with this person")
-            return
+            print("This is not a valid user choice.")
 
         self.open_conversation(receiver)
+
+    def get_recipient_options(self):
+        options = get_all_users() if is_plus(self.user) else get_friends(self.user)
+        return options
 
     def open_conversation(self, receiver):
         ConversationMenu(self.user, receiver).run()
