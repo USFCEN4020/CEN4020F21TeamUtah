@@ -1,5 +1,5 @@
 from menu import Menu
-from messages_utils import get_conversations, get_messages, send_message
+from messages_utils import get_conversations, get_messages, send_message, delete_messages
 from user_utils import get_user, is_plus, get_friends, get_all_users
 import datetime
 
@@ -18,7 +18,7 @@ class MessagesMenu(Menu):
             def run_conversation(): return self.open_conversation(
                 recipient)
 
-            self.options[f"{recipient}"] = run_conversation
+            self.options[recipient] = run_conversation
 
         self.options["Start new conversation"] = self.on_new_conversation
 
@@ -46,6 +46,12 @@ class MessagesMenu(Menu):
     def open_conversation(self, receiver):
         ConversationMenu(self.user, receiver).run()
 
+        for key in self.options:
+            if key != self.return_option_text:
+                del self.options[key]
+
+        self.setup_options()
+
 
 class ConversationMenu(Menu):
     def __init__(self, sender, receiver) -> None:
@@ -54,16 +60,22 @@ class ConversationMenu(Menu):
         self.receiver = receiver
         self.title = f"Conversation with {receiver}"
         self.options["Write Message"] = self.new_message
+        self.options["Delete Conversation"] = self.delete_conversation
 
     def new_message(self):
         content = input("Input your message: ")
         send_message(self.sender, self.receiver, content)
 
+    def delete_conversation(self):
+        ids = [message[0] for message in self.messages]
+        delete_messages(self.sender, ids)
+        return True
+
     def pre_options(self):
-        messages = get_messages(self.sender, self.receiver)
+        self.messages = get_messages(self.sender, self.receiver)
         message_lines = ""
 
-        for sender, _, content, epoch_time in messages:
+        for _, sender, _, content, epoch_time in self.messages:
             timestamp = datetime.datetime.fromtimestamp(epoch_time)
             format = f"%D %r"
 
