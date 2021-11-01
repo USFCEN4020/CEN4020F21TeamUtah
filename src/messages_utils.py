@@ -11,6 +11,18 @@ def send_message(sender, receiver, content):
         db.commit()
 
 
+def delete_messages(user, messages):
+    query = """INSERT INTO DeletedMessages (user, messageId) VALUES(?,?);"""
+    cursor = db.cursor()
+
+    for message in messages:
+        data = (user, message)
+        cursor.execute(query, data)
+
+    db.commit()
+    cursor.close()
+
+
 def get_messages(participant1, participant2):
     query = """
         SELECT * FROM Messages
