@@ -34,15 +34,7 @@ def run_around_tests(monkeypatch) -> None:
     mock_db.close()
 
 
-def test_create_friends_table():
-    friends.create_friends_table()
-    query: str = "SELECT name FROM sqlite_master WHERE type='table' AND name='Friends'"
-    cursor.execute(query)
-    assert cursor.fetchall()
-
-
 def test_friends_entry():
-    create_friend_table(mock_db)
     friends.friends_entry(SAMPLE_SELF_LASTNAME, SAMPLE_FRIEND_USERNAME, 0)
     query: str = "SELECT * FROM Friends"
     cursor.execute(query)
