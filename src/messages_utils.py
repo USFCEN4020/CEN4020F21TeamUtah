@@ -24,8 +24,10 @@ def delete_messages(user, messages):
 
 
 def get_messages(participant1, participant2):
+    cursor = db.cursor()
+
     query = """
-        SELECT * FROM Messages
+        SELECT rowid, sender, receiver, content, timestamp FROM Messages
         WHERE (sender = ? AND receiver = ?)
             OR (sender = ? AND receiver = ?)
         ORDER BY timestamp;
@@ -33,9 +35,22 @@ def get_messages(participant1, participant2):
 
     data = (participant1, participant2, participant2, participant1)
 
-    with closing(db.cursor()) as cursor:
-        cursor.execute(query, data)
-        return cursor.fetchall()
+    cursor.execute(query, data)
+    messages = cursor.fetchall()
+
+    query = """
+        SELECT messageId FROM DeletedMessages
+        WHERE user = ? or user = ?
+    """
+
+    data = (participant1, participant2)
+
+    cursor.execute(query, data)
+
+    messages_to_filter = cursor.fetchall()
+    messages_to_filter_set = set(message[0] for message in messages_to_filter)
+
+    return [message for message in messages if message[0] not in messages_to_filter_set]
 
 
 def get_conversations(user):
