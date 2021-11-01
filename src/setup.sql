@@ -34,3 +34,13 @@ CREATE TABLE IF NOT EXISTS DeletedMessages(
     user TEXT,
     messageId INTEGER
 )
+
+CREATE TABLE IF NOT EXISTS Experience(
+    username TEXT, 
+    title TEXT, 
+    employer TEXT, 
+    startDate TEXT, 
+    endDate TEXT, 
+    location TEXT, 
+    description TEXT
+)

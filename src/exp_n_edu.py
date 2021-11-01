@@ -7,13 +7,6 @@ conn = db
 c = conn.cursor()
 
 
-#creates a table to store experience of user
-def create_exp_table():
-    query = """CREATE TABLE IF NOT EXISTS Experience(username TEXT, title TEXT, employer TEXT, startDate TEXT, endDate TEXT, location TEXT, description TEXT)"""
-    c.execute(query)
-    conn.commit()
-
-
 #inserts data into new row in experience table
 def exp_entry(username, title, employer, startDate, endDate, location, description):
     data = (username, title, employer, startDate, endDate, location, description)
