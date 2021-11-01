@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS Username(
     sms BOOLEAN NOT NULL CHECK (sms IN (0, 1)) DEFAULT 1,
     marketing BOOLEAN NOT NULL CHECK (marketing IN (0, 1)) DEFAULT 1,
     isPlus BOOLEAN NOT NULL CHECK (isPlus IN (0, 1)),
-    language TEXT DEFAULT 'english'
+    language TEXT DEFAULT 'english',
+    applnumber INTEGER DEFAULT 0
 );
 CREATE TABLE IF NOT EXISTS Profile(
     username TEXT PRIMARY KEY,

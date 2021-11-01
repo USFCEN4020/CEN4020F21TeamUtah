@@ -36,7 +36,7 @@ def get_user_selection():
 
 def find_deleted_appl():
     query = """SELECT * FROM Applications WHERE username = ?;"""
-    user = get_user()
+    user = (get_user(),)
     c.execute(query, user)
     conn.commit()
     count = 0
