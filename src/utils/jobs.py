@@ -53,6 +53,20 @@ def increase_app_count(user):
     conn.commit()
 
 
+def get_applications_count(user):
+    query = """
+        SELECT COUNT(rowid) FROM Applications
+        WHERE username = ?;
+    """
+    data = (user,)
+
+    c.execute(query, data)
+    row = c.fetchone()
+    application_count = row[0]
+
+    return application_count
+
+
 def get_last_application(user):
     query = """
         SELECT MAX(timestamp) FROM Applications
