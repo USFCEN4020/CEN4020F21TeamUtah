@@ -6,6 +6,7 @@ from main_menu import find_deleted_appl, main_menu
 from utils.user import create_user, is_user, get_user_count, get_user
 from utils.auth import login, are_credentials_valid
 from utils.messages import get_unread_message_count
+from utils.jobs import is_on_job_application_drought
 
 conn = get_db()
 create_tables(conn)
@@ -135,6 +136,13 @@ def notify_unread_messages():
         print(f"You have {unread_message_count} unread messages\n")
 
 
+def notify_job_application_drought():
+    user = get_user()
+
+    if is_on_job_application_drought(user):
+        print("Remember – you're going to want to have a job when you graduate. Make sure that you start to apply for jobs today!")
+
+
 # CHOICE IS A CHAR THAT HELPS NAVIGATE THROUGH THE PROGRAM MENU
 def main():
     choice = '?'
@@ -187,8 +195,9 @@ def main():
 
             if isLoggedIn:
                 login(username)
-                notify_unread_messages()
                 print("You have successfully logged in")
+                notify_unread_messages()
+                notify_job_application_drought()
                 find_deleted_appl()
                 main_menu()
             else:
