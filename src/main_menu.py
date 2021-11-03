@@ -1,7 +1,7 @@
 # made a connection to main.py Username.db and added a function to count the jobs posted to enforce limit
 from links_menu import LinksMenu
 from profile_menu import ProfileMenu
-from utils.jobs import get_all_jobs, job_entry, number_job_rows, apply_job_entry, increase_app_count
+from utils.jobs import get_all_jobs, job_entry, number_job_rows, apply_job_entry, increase_app_count, get_applications_count
 from utils.user import get_user
 from messages_menu import MessagesMenu
 from db.db import get_db
@@ -34,21 +34,14 @@ def get_user_selection():
 
 
 def find_deleted_appl():
-    query = """SELECT * FROM Applications WHERE username = ?;"""
-    user = (get_user(),)
-    c.execute(query, user)
-    conn.commit()
-    count = 0
-    for i in c.fetchall():
-        count = count + 1
+    user = get_user()
+    count = get_applications_count(user)
 
     query = """SELECT applnumber FROM Username WHERE username = ?;"""
-    c.execute(query, user)
-    conn.commit()
+    data = (user, )
+    c.execute(query, data)
 
-    count2 = 0
-    for i in c.fetchall():
-        count2 = count2 + 1
+    count2 = c.fetchone()[0]
 
     if count != count2:
         print("A job that you had applied to has been deleted")
