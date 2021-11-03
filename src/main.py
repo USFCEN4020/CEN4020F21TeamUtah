@@ -6,7 +6,7 @@ from main_menu import find_deleted_appl, main_menu
 from utils.user import create_user, is_user, get_user_count, get_user
 from utils.auth import login, are_credentials_valid
 from utils.messages import get_unread_message_count
-from utils.jobs import is_on_job_application_drought
+from utils.jobs import is_on_job_application_drought, get_applications_count
 
 conn = get_db()
 create_tables(conn)
@@ -141,6 +141,12 @@ def notify_job_application_drought():
 
     if is_on_job_application_drought(user):
         print("Remember – you're going to want to have a job when you graduate. Make sure that you start to apply for jobs today!")
+
+
+def notify_job_application_count():
+    count = get_applications_count()
+
+    print(f"You have currently applied for {count} jobs")
 
 
 # CHOICE IS A CHAR THAT HELPS NAVIGATE THROUGH THE PROGRAM MENU
