@@ -1,4 +1,5 @@
 from db.db import get_db
+import datetime
 
 conn = get_db()
 c = conn.cursor()
@@ -50,3 +51,27 @@ def increase_app_count(user):
     data = (app_count, user)
     c.execute(query, data)
     conn.commit()
+
+
+def get_last_application(user):
+    query = """
+        SELECT MAX(timestamp) FROM Applications
+        WHERE username = ?;
+    """
+    data = (user, )
+
+    c.execute(query, data)
+    row = c.fetchone()
+    last_application = row[0]
+
+    return last_application
+
+
+def is_on_job_application_drought(user):
+    last_application_epoch = is_on_job_application_drought(user)
+    last_application = datetime.datetime.fromtimestamp(last_application_epoch)
+
+    now = datetime.datetime.now()
+    delta = now - last_application
+
+    return delta.days >= 7
