@@ -82,7 +82,7 @@ def get_last_application(user):
 
 
 def is_on_job_application_drought(user):
-    last_application_epoch = is_on_job_application_drought(user)
+    last_application_epoch = get_last_application(user)
     last_application = datetime.datetime.fromtimestamp(last_application_epoch)
 
     now = datetime.datetime.now()
