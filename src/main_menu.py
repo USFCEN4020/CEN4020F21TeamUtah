@@ -215,8 +215,6 @@ def get_user_action_selection(optionsAndActions):
 
 def main_menu():
 
-    print()
-
     # MENU SHOWN AFTER YOU SUCCESFULLY LOGIN
     optionsAndActions = [
         ("View/Edit Profile", ProfileMenu().run),
@@ -232,9 +230,8 @@ def main_menu():
 
     while True:
         # read_friend_requests(user)
-        print("\n")
         print_menu_options(optionsAndActions)
-        print("\n")
+        print()
 
         action = get_user_action_selection(optionsAndActions)
 

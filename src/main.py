@@ -197,6 +197,7 @@ def main():
         elif choice == 'l':
             username = input("Username: ")
             password = getpass()
+            print()
             isLoggedIn = are_credentials_valid(username, password)
 
             if isLoggedIn:
@@ -205,6 +206,7 @@ def main():
                 notify_unread_messages()
                 notify_job_application_drought()
                 find_deleted_appl()
+                print()
                 main_menu()
             else:
                 print("Incorrect username/password, please try again")
