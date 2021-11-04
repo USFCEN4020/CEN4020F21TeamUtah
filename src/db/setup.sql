@@ -75,5 +75,5 @@ CREATE TABLE IF NOT EXISTS Applications(
     grad_date TEXT,
     entry_date TEXT,
     description TEXT,
-    timestamp INTEGER DEFAULT (CAST(strftime('%s', 'now') AS INT)) NOT NULL,
+    timestamp INTEGER DEFAULT (CAST(strftime('%s', 'now') AS INT)) NOT NULL
 );
