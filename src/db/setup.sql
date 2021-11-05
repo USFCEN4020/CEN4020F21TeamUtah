@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS Friends(
     request INTEGER
 );
 CREATE TABLE IF NOT EXISTS Jobs(
+    jobid INT,
     username TEXT,
     title TEXT,
     description TEXT,
@@ -70,10 +71,19 @@ CREATE TABLE IF NOT EXISTS Jobs(
     salary REAL
 );
 CREATE TABLE IF NOT EXISTS Applications(
+    jobid INT,
     username TEXT,
     title TEXT,
     grad_date TEXT,
     entry_date TEXT,
     description TEXT,
     timestamp INTEGER DEFAULT (CAST(strftime('%s', 'now') AS INT)) NOT NULL
+);
+CREATE TABLE IF NOT EXISTS Seenjobs(
+    jobid INT,
+    username TEXT
+);
+CREATE TABLE IF NOT EXISTS Seenprofiles(
+    username TEXT,
+    profilename TEXT
 );
