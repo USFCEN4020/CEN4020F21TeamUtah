@@ -15,15 +15,16 @@ c = conn.cursor()
 
 
 def select_all_jobs():
+    count = 0
     for i in get_all_jobs():
-        count = 1
-        print("Job #" + count)
-        print("Title: " + i[1])
-        print("Description: " + i[2])
-        print("Employer: " + i[3])
-        print("Location: " + i[4])
-        print("Salary: " + i[5])
-        count = +1
+
+        print("Job #" + str(count))
+        print("Title: " + i[2])
+        print("Description: " + i[3])
+        print("Employer: " + i[4])
+        print("Location: " + str(i[5]))
+        print("Salary: " + str(i[6]))
+        count =count+ 1
 
 
 def get_user_selection():
@@ -70,6 +71,7 @@ def job_intern_menu():
                 print(
                     "The maximum amount of jobs posted have been reached. Please come back again later.")
                 return
+            job_id=int(input("Enter job ID:"))
             job_title = input("Job Title: ")
             job_description = input("Job Description: ")
             employer = input("Employer: ")
@@ -77,60 +79,63 @@ def job_intern_menu():
             salary = input("Salary: ")
 
             username = get_user()
-            job_entry(username, job_title, job_description,
+            job_entry(job_id,username, job_title, job_description,
                       employer, location, salary)
 
         # implemented for ICU-36 sprint 6
         elif selection == 2:
             # apply for a job
-            job_select = input(
-                int(print("Choose the number of the job you want to apply to: ")))
+            print("Choose the number of the job you want to apply to: ")
             select_all_jobs()
-            if job_select > number_job_rows + 1:
+            job_select = int(input())
+            if job_select > number_job_rows() + 1:
                 print("Please select a job in the appropiate range.")
-            elif job_select <= number_job_rows + 1:
+            elif job_select <= number_job_rows() + 1:
                 user = get_user()
                 query = """SELECT * FROM Jobs"""
                 c.execute(query)
                 conn.commit()
-                tp_list = [tuple()]
-                for i in c.fetchall():
-                    tp_list.append()
+                tp_list = c.fetchall()
 
-                if tp_list[job_select, 0] == user:
+                if tp_list[job_select][1] == user:
                     print("You cannot apply to a job you created. Please try again.")
                     return
                 else:
-                    title = tp_list[job_select, 1]
-                    grad_date = input(
-                        str(print("Please enter a graduation date: ")))
-                    start_date = input(
-                        str(print("Please enter a start date: ")))
-                    description = input(str(print(
-                        "Please write a brief paragraph explaining why you think you would be a good fit for the job: ")))
+                    job_id=tp_list[job_select][0]
+                    title = tp_list[job_select][ 2]
+                    print("Please enter a graduation date: ")
+                    grad_date = str(input())
+                    print("Please enter a start date: ")
+                    start_date = str(input())
+                    print("Please write a brief paragraph explaining why you think you would be a good fit for the job: ")
+                    description = str(input())
                     # FOR ICU-34 SPRINT 6 "The entered information will be stored in a way that associates it with the job that has been applied for"
-                    apply_job_entry(user, title, grad_date,
+                    apply_job_entry(job_id,user, title, grad_date,
                                     start_date, description)
+                    print(user)
                     increase_app_count(user)
 
         # FOR ICU-35 SPRINT 6 implement deletion of items that the user has not posted himself
         elif selection == 3:
-            tp_list = [tuple()]
+            tp_list = []
             print("This is the list of possible jobs that you can delete\n")
             count = 0
-            for i in select_all_jobs():
-                if i[0] == get_user():
+            for i in get_all_jobs():
+                if i[1] == get_user():
                     tp_list.append(i)
-                    print("Job # " + count + "\n")
-                    print("\nJob Title: " + i[1] + "\n")
-                    print("Employer: " + i[2] + "\n")
-                    print("Location: " + i[3] + "\n")
-                    print("Salary: " + i[4] + "\n")
+                    print("Job # " + str(count) + "\n")
+                    print("Job ID # " + str(i[0]) + "\n")
+                    print("\nJob Title: " + i[2] + "\n")
+                    print("Employer: " + i[4] + "\n")
+                    print("Location: " + i[5] + "\n")
+                    print("Salary: " +str(i[6]) + "\n")
 
-            selection2 = input(int(print("Which job do you wish to delete?")))
-            select_title = tp_list[selection2, 1]
-            query = """DELETE * FROM Jobs WHERE title = ?;"""
-            c.execute(query, select_title)
+            print("Which job do you wish to delete?")
+            selection2 = int(input())
+
+            select_title = tp_list[selection2][2]
+            query = """DELETE FROM Jobs WHERE title = ?;"""
+            c.execute(query, (select_title,))
             conn.commit()
 
         # RETURNS BACK TO THE PREVIOUS MENU
