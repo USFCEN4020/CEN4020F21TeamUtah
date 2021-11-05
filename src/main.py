@@ -6,7 +6,7 @@ from main_menu import find_deleted_appl, main_menu
 from utils.user import create_user, is_user, get_user_count, get_user
 from utils.auth import login, are_credentials_valid
 from utils.messages import get_unread_message_count
-from utils.jobs import is_on_job_application_drought, get_applications_count
+from utils.jobs import is_on_job_application_drought, get_applications_count, get_deleted_jobs,get_unseen_jobs, check_if_profile_exists
 
 conn = get_db()
 create_tables(conn)
@@ -204,6 +204,10 @@ def main():
                 login(username)
                 print("You have successfully logged in")
                 notify_unread_messages()
+                get_unseen_jobs(username)
+                check_if_profile_exists(username)
+                get_deleted_jobs(username)
+
                 notify_job_application_drought()
                 find_deleted_appl()
                 print()
