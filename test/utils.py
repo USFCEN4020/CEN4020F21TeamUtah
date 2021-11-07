@@ -38,3 +38,11 @@ def login_user(db: sqlite3.Connection, username: str):
     query = """UPDATE Username SET logedin = 1 WHERE username = ?"""
     db.execute(query, (username, ))
     db.commit()
+
+
+def add_new_message(db: sqlite3.Connection, sender_user: str = None, receiver_user: str = None,
+                    sample_content: str = None):
+    query = """INSERT INTO Messages (sender, receiver, content) VALUES(?,?,?);"""
+    db.execute(query, (sender_user, receiver_user, sample_content))
+    db.commit()
+
