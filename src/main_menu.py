@@ -1,6 +1,7 @@
 # made a connection to main.py Username.db and added a function to count the jobs posted to enforce limit
 from links_menu import LinksMenu
 from profile_menu import ProfileMenu
+from learning_menu import LearningMenu
 from utils.jobs import get_all_jobs, job_entry, number_job_rows, apply_job_entry, increase_app_count, get_applications_count
 from utils.user import get_user
 from messages_menu import MessagesMenu
@@ -228,6 +229,7 @@ def main_menu():
         ("Messages", MessagesMenu().run),
         ("Learn a New Skill", learn_skills_menu),
         ("InCollege Important links", LinksMenu().run),
+        ("InCollege Learning", LearningMenu().run),
         ("Log Out", logout)
     ]
 

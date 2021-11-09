@@ -87,3 +87,9 @@ CREATE TABLE IF NOT EXISTS Seenprofiles(
     username TEXT,
     profilename TEXT
 );
+
+CREATE TABLE IF NOT EXISTS Courses(
+    username TEXT,
+    course TEXT,
+    status NOT NULL CHECK (status IN (0, 1)) DEFAULT 0
+);
