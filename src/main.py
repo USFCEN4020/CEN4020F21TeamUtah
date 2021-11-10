@@ -165,11 +165,123 @@ def main():
         print("s - play a video of success story")
         print("i - InCollege Important Links")
         print("u - usefull links")
+        print("t - training")
         print("\n")
 
         question = input("Please make a choice from the menu: ")
 
         choice = question
+
+        if choice == 't':
+            print("t - Training and Education")
+            print("i - IT Help Desk")
+            print("b - Business Analysis and Strategy")
+            print("s - Security")
+
+            que = input("Please make a choice from the menu: ")
+
+            choice = que
+
+            if choice == 't':
+                print("j - java")
+                print("c - c program")
+                print("p - python")
+                print("a - angular")
+
+                ques = input("Please make a choice from the menu: ")
+
+                choice = ques
+
+                if choice == 'j':
+                    print("Under Construction")
+                if choice == 'c':
+                    print("Under Construction")
+                if choice == 'p':
+                    print("Under Construction")
+                if choice == 'a':
+                    print("Under Construction")
+
+            if choice == 'i':
+                print("Coming soon!")
+            if choice == 's':
+                print("Coming soon!")
+            if choice == 'b':
+                print("Results in list of the following trending courses:")
+                print("h - How to use In College learning")
+                print("t - Train the trainer")
+                print("g - Gamification of learning")
+                print("Not seeing what you’re looking for? Sign in to see all 7,609 results")
+
+                quest = input("Please make a choice from the menu: ")
+
+                choice = quest
+
+                if choice == 'h':
+                    print("Please sign in")
+                    username = input("Username: t")
+                    password = getpass()
+                    print()
+                    isLoggedIn = are_credentials_valid(username, password)
+
+                    if isLoggedIn:
+                        login(username)
+                        print("You have successfully logged in")
+                        notify_unread_messages()
+                        get_unseen_jobs(username)
+                        check_if_profile_exists(username)
+                        get_deleted_jobs(username)
+
+                        notify_job_application_drought()
+                        find_deleted_appl()
+                        print()
+                        main_menu()
+                    else:
+                        print("Incorrect username/password, please try again")
+
+                if choice == 't':
+                    print("Please sign in")
+                    username = input("Username: t")
+                    password = getpass()
+                    print()
+                    isLoggedIn = are_credentials_valid(username, password)
+
+                    if isLoggedIn:
+                        login(username)
+                        print("You have successfully logged in")
+                        notify_unread_messages()
+                        get_unseen_jobs(username)
+                        check_if_profile_exists(username)
+                        get_deleted_jobs(username)
+
+                        notify_job_application_drought()
+                        find_deleted_appl()
+                        print()
+                        main_menu()
+                    else:
+                        print("Incorrect username/password, please try again")
+
+                if choice == 'g':
+                    print("Please sign in")
+                    username = input("Username: t")
+                    password = getpass()
+                    print()
+                    isLoggedIn = are_credentials_valid(username, password)
+
+                    if isLoggedIn:
+                        login(username)
+                        print("You have successfully logged in")
+                        notify_unread_messages()
+                        get_unseen_jobs(username)
+                        check_if_profile_exists(username)
+                        get_deleted_jobs(username)
+
+                        notify_job_application_drought()
+                        find_deleted_appl()
+                        print()
+                        main_menu()
+
+                    else:
+                        print("Incorrect username/password, please try again")
 
         if choice == 'f':
             first_name = input("enter first name:")
