@@ -1,5 +1,5 @@
 import sqlite3
-from .context import db
+from src.db import db
 
 
 def get_mock_db():
@@ -45,4 +45,3 @@ def add_new_message(db: sqlite3.Connection, sender_user: str = None, receiver_us
     query = """INSERT INTO Messages (sender, receiver, content) VALUES(?,?,?);"""
     db.execute(query, (sender_user, receiver_user, sample_content))
     db.commit()
-

@@ -1,4 +1,4 @@
-from .context import links_menu
+from src import links_menu
 
 
 def test_CopyrightNoticeMenu() -> None:

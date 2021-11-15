@@ -1,4 +1,4 @@
-from .context import profile_menu, main
+from src import profile_menu, main
 from .utils import get_mock_db
 import pytest
 

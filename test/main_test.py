@@ -1,7 +1,7 @@
 import pytest
 import sqlite3
 from typing import Union
-from .context import main
+from src import main
 from .utils import add_user
 
 """

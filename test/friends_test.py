@@ -1,6 +1,6 @@
 import pytest
 from .utils import *
-from .context import friends
+from src import friends
 from typing import Optional
 
 SAMPLE_SELF_USERNAME: str = "self username"

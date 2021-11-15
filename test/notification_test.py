@@ -1,4 +1,3 @@
-from . import context
 import sqlite3
 import pytest
 from .utils import *
@@ -37,11 +36,10 @@ def application_drought_test(capsys):
     assert output.out == "Remember – you're going to want to have a job when you graduate. Make sure that you start to apply for jobs today!"
 
 
-
 def new_messages_notif_test(capsys):
-    add_new_message(mock_db, SAMPLE_FRIEND_USERNAME, SAMPLE_SELF_USERNAME, "Hello World!")
+    add_new_message(mock_db, SAMPLE_FRIEND_USERNAME,
+                    SAMPLE_SELF_USERNAME, "Hello World!")
     login_user(mock_db, SAMPLE_SELF_USERNAME)
     output = capsys.readouterr()
     unread_message_count = 1
     assert output.out == f"You have {unread_message_count} unread messages\n"
-
