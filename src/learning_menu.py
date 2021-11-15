@@ -1,17 +1,12 @@
-from typing import Callable, Optional, Tuple, List
+from typing import Callable
+from src.utils.learning import set_course_completed
+from utils.learning import get_courses, insert_course, set_course_completed
 from utils.menu import Menu
+from utils.user import get_user
 from db.db import get_db
 from colorama import Fore, Style
 
 db = get_db()
-
-
-def get_username() -> str:
-    cursor = db.cursor()
-    query: str = "SELECT username FROM Username WHERE logedin=1"
-    cursor.execute(query)
-    result: Optional[Tuple, List] = cursor.fetchone()
-    return result[0] if result is not None else None
 
 
 class LearningMenu(Menu):
@@ -31,42 +26,37 @@ class LearningMenu(Menu):
         # menu options
         self.title = "InCollege Learning"
         for course_with_status, value in self.courses_with_status.items():
-            self.options[course_with_status] = self.complete_course(value[0], value[1])
-
-    def update_courses(self) -> None:
-        cursor = db.cursor()
-        for course in self.courses:
-            query: str = "INSERT OR IGNORE INTO Courses VALUES (?, ?, ?)"
-            cursor.execute(query, (self.username, course, 0))
-            db.commit()
+            self.options[course_with_status] = self.complete_course(
+                value[0], value[1])
 
     def read_db(self) -> None:
         """read course status from db"""
-        cursor = db.cursor()
-        query = "SELECT course, status FROM Courses WHERE username = ?"
-        cursor.execute(query, (self.username, ))
-        result = cursor.fetchall()
-        if result:
+        self.username = get_user()
+        courses = get_courses()
+
+        if courses:
             completed: str = f"{Fore.GREEN}(Completed) {Style.RESET_ALL}"
             not_completed: str = f"{Fore.RED}(Not Completed) {Style.RESET_ALL}"
-            for course, status in result:
-                self.courses_with_status[f"{completed if status else not_completed}{course}"] = (course, status)
-        self.update_courses()
+            for course, status in courses:
+                self.courses_with_status[(
+                    f"{completed if status else not_completed}{course}")] = (course, status)
+        else:
+            for course in self.courses:
+                insert_course(course, self.username)
+            db.commit()
 
     def complete_course(self, course, status) -> Callable:
         """wrapper for complete course callable"""
         def complete():
             """mark a course as completed"""
-            cursor = db.cursor()
             if status:
-                response = input("You have already taken this course, do you want to take it again? ").lower()
+                response = input(
+                    "You have already taken this course, do you want to take it again? ").lower()
                 if response != "yes":
                     print("Course Cancelled")
                     return
 
-            query = "UPDATE Courses SET status=? WHERE username=? AND course=?"
-            cursor.execute(query, (1, self.username, course))
-            db.commit()
+            set_course_completed(course, self.username)
             print("You have now completed this training")
             self.__init__()  # update menu values
         return complete
@@ -84,7 +74,7 @@ def add_course(course: str) -> None:
     db.commit()
 
 
-def get_courses() -> List:
+def get_courses():
     """return list of available courses"""
     cursor = db.cursor()
     query = "SELECT * FROM CourseList"
