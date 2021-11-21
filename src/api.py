@@ -11,6 +11,12 @@ import re
 NEW_TRAININGS_FILE: str = "newTrainings.txt"
 STUDENT_ACC_FILE: str = "studentAccounts.txt"
 NEW_JOBS_FILE: str = "newJobs.txt"
+JOBS_IN_SYSTEM_FILE: str = "Mycollege_jobs.txt"
+USER_PROFILES_FILE: str = "Mycollege_profiles.txt"
+USERS_IN_SYSTEM_FILE: str = "Mycollege_users.txt"
+TRAININGS_PER_USER_FILE: str = "Mycollege_training.txt"
+APPLIED_JOBS_FILE: str = "Mycollege_appliedJobs.txt"
+SAVED_JOBS_FILE: str = "Mycollege_savedJobs.txt"
 MAX_USER_COUNT: int = 10
 MAX_JOB_COUNT: int = 10
 
@@ -164,6 +170,14 @@ def run_input_api() -> None:
     create_job_api()
     create_training_api()
     logging.info("Execution End\n\n")
+
+
+def parse_profiles(filename: str) -> List[str]:
+    return 1    #PLACEHOLDER
+
+
+def create_profile_api() -> None:
+    return 2    #PLACEHOLDER
 
 
 if __name__ == '__main__':
