@@ -93,3 +93,7 @@ CREATE TABLE IF NOT EXISTS Courses(
     course TEXT,
     status NOT NULL CHECK (status IN (0, 1)) DEFAULT 0
 );
+CREATE TABLE IF NOT EXISTS CourseList(
+    course TEXT,
+    UNIQUE (course)
+);

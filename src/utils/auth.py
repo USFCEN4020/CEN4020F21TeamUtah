@@ -20,6 +20,7 @@ def login(username):
     c.execute(query, target)
     conn.commit()
 
+def logout(username):
     query = """UPDATE Username SET logedin = 0 WHERE username != ?"""
-    c.execute(query, target)
+    c.execute(query, (username,))
     conn.commit()
