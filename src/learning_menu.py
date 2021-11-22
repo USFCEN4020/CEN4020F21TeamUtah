@@ -1,8 +1,11 @@
 from typing import Callable
+from db.db import get_db
 from utils.learning import get_courses, insert_course, set_course_completed
 from utils.menu import Menu
 from utils.user import get_user
 from colorama import Fore, Style
+
+db = get_db()
 
 
 class LearningMenu(Menu):
@@ -12,10 +15,9 @@ class LearningMenu(Menu):
         super().__init__()
 
         # database variables
-        course_setup()
         self.username = get_user()
-        self.courses = [course[0] for course in get_courses()]
-        self.update_courses()
+        course_setup(self.username)
+        self.courses = [course[0] for course in get_courses(self.username)]
         self.courses_with_status = dict()
         self.read_db()
 
@@ -62,26 +64,10 @@ class LearningMenu(Menu):
         super(LearningMenu, self).run()
 
 
-def add_course(course: str) -> None:
-    """add course to the database"""
-    cursor = db.cursor()
-    query = "INSERT OR IGNORE INTO CourseList (course) VALUES (?)"
-    cursor.execute(query, (course,))
-    db.commit()
-
-
-def get_courses():
-    """return list of available courses"""
-    cursor = db.cursor()
-    query = "SELECT * FROM CourseList"
-    cursor.execute(query)
-    return cursor.fetchall()
-
-
-def course_setup():
+def course_setup(user):
     default_courses = ["How to use In College learning",
                        "Train the trainer", "Gamification of learning",
                        "Understanding the Architectural Design Process",
                        "Project Management Simplified"]
     for course in default_courses:
-        add_course(course)
+        insert_course(course, user)

@@ -13,7 +13,7 @@ def get_all_jobs():
 
 def job_entry(jobid, username, title, description, employer, location, salary):
 
-    data = (jobid, username,title, description, employer, location, salary)
+    data = (jobid, username, title, description, employer, location, salary)
     query = """INSERT INTO Jobs(jobid, username,title,description,employer,location,salary) VAlUES(?,?,?,?,?,?,?);"""
     c.execute(query, data)
     conn.commit()
@@ -36,7 +36,7 @@ def job_deletion(jobid, username, title, description, employer, location, salary
 
 
 def apply_job_entry(jobid, username, title, grad_date, entry_date, description):
-    data = (jobid,username, title, grad_date, entry_date, description)
+    data = (jobid, username, title, grad_date, entry_date, description)
     query = """INSERT INTO Applications(jobid, username, title, grad_date, entry_date, description) VALUES(?,?,?,?,?,?)"""
     c.execute(query, data)
     conn.commit()
@@ -52,6 +52,7 @@ def increase_app_count(user):
     c.execute(query, data)
     conn.commit()
 
+
 def get_deleted_jobs(user):
     query = """SELECT *
 FROM   Applications C
@@ -60,13 +61,12 @@ WHERE  NOT EXISTS (SELECT 1
                    WHERE  c.title = e.title) and username = ?;
         """
 
-    data=(user,)
-
+    data = (user,)
 
     c.execute(query, data)
 
-    rows=c.fetchall()
-    if len(rows)>0:
+    rows = c.fetchall()
+    if len(rows) > 0:
         print("tuple of deleted jobs")
     for row in rows:
         print(row)
@@ -86,12 +86,14 @@ def get_applications_count(user):
 
     return application_count
 
+
 def insert_into_seenjobs(jobid, username):
 
     data = (jobid, username)
     query = """INSERT INTO Seenjobs (jobid, username) VALUES(?,?)"""
     c.execute(query, data)
     conn.commit()
+
 
 def get_unseen_jobs(user):
     query = """
@@ -101,11 +103,11 @@ def get_unseen_jobs(user):
 
     c.execute(query, data)
     rows = c.fetchall()
-    if len(rows)>0:
+    if len(rows) > 0:
         print("tuple of unseen jobs:")
     for row in rows:
         print(row)
-        insert_into_seenjobs(row[0],user)
+        insert_into_seenjobs(row[0], user)
 
     return 0
 
@@ -118,23 +120,24 @@ def insert_into_seenprofiles(user, profilename):
 
 
 def check_new_profiles(user):
-    query=""" SELECT * from Profile as p where NOT exists (select 1 from Seenprofiles as s where p.username=s.profilename"""
+    query = """ SELECT * from Profile as p where NOT exists (select 1 from Seenprofiles as s where p.username=s.profilename"""
     data = (user,)
     c.execute(query, data)
     rows = c.fetchall()
 
     for row in rows:
         print(row[0]+row[1]+" has joined In college")
-        insert_into_seenprofiles(user,row[0])
+        insert_into_seenprofiles(user, row[0])
+
 
 def check_if_profile_exists(user):
-    query= """ SELECT * from Profile where username=?"""
-    data=(user,)
-    c.execute(query,data)
-    rows=c.fetchall()
+    query = """ SELECT * from Profile where username=?"""
+    data = (user,)
+    c.execute(query, data)
+    rows = c.fetchall()
 
-    if len(rows)<1:
-        print("please Don't forget to create a profile")
+    if len(rows) < 1:
+        print("Please don't forget to create a profile")
 
 
 def get_last_application(user):
