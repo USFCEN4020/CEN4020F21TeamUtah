@@ -4,6 +4,7 @@ from utils.jobs import job_entry, number_job_rows
 from learning_menu import add_course
 import logging
 import re
+import os
 
 
 # Constants
@@ -18,6 +19,10 @@ APPLIED_JOBS_FILE: str = "Mycollege_appliedJobs.txt"
 SAVED_JOBS_FILE: str = "Mycollege_savedJobs.txt"
 MAX_USER_COUNT: int = 10
 MAX_JOB_COUNT: int = 10
+
+
+def get_input_path(path):
+    return os.path.join("api-inputs/", path)
 
 
 def parse_accounts(filename: str) -> list[dict[str, str]]:
@@ -108,7 +113,8 @@ def create_account_api() -> None:
     """
     create student accounts for api
     """
-    accounts: list[dict[str, str]] = parse_accounts(STUDENT_ACC_FILE)
+    accounts: list[dict[str, str]] = parse_accounts(
+        get_input_path(STUDENT_ACC_FILE))
     for account in accounts:
         if get_user_count() < MAX_USER_COUNT:
             if is_unique_username(account["username"]) and is_valid_password(account["password"]):
@@ -127,7 +133,7 @@ def create_job_api() -> None:
     """
     create new job posts for api
     """
-    jobs: list[dict[str, str]] = parse_jobs(NEW_JOBS_FILE)
+    jobs: list[dict[str, str]] = parse_jobs(get_input_path(NEW_JOBS_FILE))
     for i, job in enumerate(jobs):
         if number_job_rows() < MAX_JOB_COUNT:
             if is_user(job["poster"]):
@@ -147,7 +153,7 @@ def create_training_api() -> None:
     """
     create new training entries for api
     """
-    trainings = parse_trainings(NEW_TRAININGS_FILE)
+    trainings = parse_trainings(get_input_path(NEW_TRAININGS_FILE))
     for training in trainings:
         add_course(training)
         logging.info(f"Added new training: {training}")
