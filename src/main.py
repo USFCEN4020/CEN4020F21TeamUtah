@@ -6,7 +6,7 @@ from main_menu import find_deleted_appl, main_menu
 from utils.user import create_user, is_user, get_user_count, get_user
 from utils.auth import login, are_credentials_valid
 from utils.messages import get_unread_message_count
-from utils.jobs import is_on_job_application_drought, get_applications_count, get_deleted_jobs,get_unseen_jobs, check_if_profile_exists
+from utils.jobs import is_on_job_application_drought, get_applications_count, get_deleted_jobs, get_unseen_jobs, check_if_profile_exists
 
 conn = get_db()
 create_tables(conn)
@@ -67,8 +67,10 @@ def find_in_db(first_name, last_name):
 def general():
     choice = '*'
     while choice != 'q':
-        print("1- Sign Up\n2- Help Center\n3- About\n4- Press,\n5- Blog,\n6- Careers,\n7- Developers\nq- quit")
-        choice = input("Please select a option:")
+        print("1 - Sign Up\n2 - Help Center\n3 - About\n4 - Press\n5 - Blog\n6 - Careers\n7 - Developers\nq - Quit")
+        print()
+        choice = input("Please select a option: ")
+        print()
 
         if choice == '1':
             createnewacc()
@@ -88,35 +90,40 @@ def general():
         if choice not in ['1', '2', '3', '4', '5', '6', '7']:
             print("Invalid choice. Please pick an option from the menu.")
 
+        print()
+
 
 def usefulllinks():
     choice = '*'
     while choice != 'q':
-        print("1 - general")
-        print("2 - browse InCollege")
-        print("3 - business solutions")
-        print("4 - directories")
-        print("q- quit")
+        print("1 - General")
+        print("2 - Browse InCollege")
+        print("3 - Business Solutions")
+        print("4 - Directories")
+        print("q - Quit")
+        print()
 
-        choice = input("Please select a option:")
+        choice = input("Please select a option: ")
+        print()
 
         if choice == '1':
             general()
         if choice in ['2', '3', '4']:
-            print("under construction")
+            print("Under construction")
         if choice not in ['1', '2', '3', '4']:
             print("Invalid choice. Please pick an option from the menu.")
+
+        print()
 
 
 def createnewacc():
     capacity = get_user_count()
     if capacity < 10:
-        print("\n")
         print("Please input a unique username and password")
         username = input("Username: ")
         username2 = look_value(username)
-        first_name = input("first name: ")
-        last_name = input("last name: ")
+        first_name = input("First name: ")
+        last_name = input("Last name: ")
         password = getpass()
         check_pw(password)
         isPlus = input(
@@ -154,21 +161,22 @@ def main():
     choice = '?'
 
     print("Jacob had dreamed about working at Southwest Airlines for as long as he can remember. He applied and interviewed for internships and full-time jobs to no avail. But after each meeting, he connected with each Southwest employee and recruiter on CollegeIn. With a growing family to support, he eventually accepted a job at a B2B IT company. Then one day he noticed that CollegeIn's people you may knowmodule suggested he connect with a Southwest recruiter he was linked to through another connection. He sent the recruiter a connection request and she responded asking if he had time to chat about a job opening. On Aug. 27, 2021, Jacob joined Southwest.")
+    print()
 
     while choice != 'q':
-        print("\n")
         print("          MENU     ")
         print("n - Create new account")
         print("l - Login")
-        print("q - Quit")
-        print("f - find a friend")
-        print("s - play a video of success story")
+        print("f - Find a friend")
+        print("s - Play a video of success story")
+        print("t - Training")
         print("i - InCollege Important Links")
-        print("u - usefull links")
-        print("t - training")
-        print("\n")
+        print("u - Usefull links")
+        print("q - Quit")
+        print()
 
         question = input("Please make a choice from the menu: ")
+        print()
 
         choice = question
 
@@ -177,18 +185,22 @@ def main():
             print("i - IT Help Desk")
             print("b - Business Analysis and Strategy")
             print("s - Security")
+            print()
 
             que = input("Please make a choice from the menu: ")
+            print()
 
             choice = que
 
             if choice == 't':
-                print("j - java")
-                print("c - c program")
-                print("p - python")
-                print("a - angular")
+                print("j - Java")
+                print("c - C program")
+                print("p - Python")
+                print("a - Angular")
+                print()
 
                 ques = input("Please make a choice from the menu: ")
+                print()
 
                 choice = ques
 
@@ -201,24 +213,31 @@ def main():
                 if choice == 'a':
                     print("Under Construction")
 
+                print()
+
             if choice == 'i':
                 print("Coming soon!")
+                print()
             if choice == 's':
                 print("Coming soon!")
+                print()
             if choice == 'b':
                 print("Results in list of the following trending courses:")
                 print("h - How to use In College learning")
                 print("t - Train the trainer")
                 print("g - Gamification of learning")
-                print("Not seeing what you’re looking for? Sign in to see all 7,609 results")
+                print(
+                    "Not seeing what you’re looking for? Sign in to see all 7,609 results")
+                print()
 
                 quest = input("Please make a choice from the menu: ")
+                print()
 
                 choice = quest
 
                 if choice == 'h':
                     print("Please sign in")
-                    username = input("Username: t")
+                    username = input("Username: ")
                     password = getpass()
                     print()
                     isLoggedIn = are_credentials_valid(username, password)
@@ -262,7 +281,7 @@ def main():
 
                 if choice == 'g':
                     print("Please sign in")
-                    username = input("Username: t")
+                    username = input("Username: ")
                     password = getpass()
                     print()
                     isLoggedIn = are_credentials_valid(username, password)
@@ -283,27 +302,32 @@ def main():
                     else:
                         print("Incorrect username/password, please try again")
 
-        if choice == 'f':
-            first_name = input("enter first name:")
-            last_name = input("enter last name:")
+        elif choice == 'f':
+            first_name = input("Enter first name: ")
+            last_name = input("Enter last name: ")
+            print()
             find_in_db(first_name, last_name)
-            previous_page = input("please enter to the previous page")
-        if choice == 's':
-            print("video is now playing")
-            Previous_page = input("press enter to the previous page")
-        if choice == 'i':
+            previous_page = input("Press enter to go to the previous page")
+            print()
+        elif choice == 's':
+            print("Video is now playing")
+            Previous_page = input("Press enter to go to the previous page")
+            print()
+        elif choice == 'i':
             LinksMenu().run()
-            Previous_page = input("press enter to the previous page")
-        if choice == 'u':
+            Previous_page = input("Press enter to go to the previous page")
+            print()
+        elif choice == 'u':
             usefulllinks()
 
     # QUITS THE PROGRAM
-        if choice == 'q':
+        elif choice == 'q':
             exit()
 
     # CREATES NEW ACCOUNT
         elif choice == 'n':
             createnewacc()
+            print()
 
     # LOGIN TO PROGRAM
         elif choice == 'l':
