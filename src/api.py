@@ -1,8 +1,7 @@
 from pathlib import Path
-from typing import List, Dict
-from src.utils.user import create_user, get_user_count, is_user
-from src.utils.jobs import job_entry, number_job_rows
-from src.learning_menu import add_course
+from utils.user import create_user, get_user_count, is_user
+from utils.jobs import job_entry, number_job_rows
+from learning_menu import add_course
 import logging
 import re
 
@@ -21,23 +20,24 @@ MAX_USER_COUNT: int = 10
 MAX_JOB_COUNT: int = 10
 
 
-def parse_accounts(filename: str) -> List[Dict[str, str]]:
+def parse_accounts(filename: str) -> list[dict[str, str]]:
     """
     read student account info from a file
     @param filename: name of file to read from
     @return: list of parsed accounts
     """
     student_acc_path: Path = Path(filename)
-    accounts: List[Dict[str, str]] = list()
+    accounts: list[dict[str, str]] = list()
     if student_acc_path.exists():
         with open(student_acc_path, 'r') as file:
             has_next: bool = True
             while has_next:
                 account = dict()
                 try:
-                    line: List[str] = re.split("[;, \t]", file.readline().strip())
+                    line: list[str] = re.split(
+                        "[;, \t]", file.readline().strip())
                     account["username"], account["first_name"], account["last_name"] = line
-                    account["password"]: str = file.readline().strip()
+                    account["password"] = file.readline().strip()
                     end: str = file.readline().strip()
                 except ValueError:
                     logging.error("Invalid student account file format")
@@ -51,30 +51,30 @@ def parse_accounts(filename: str) -> List[Dict[str, str]]:
     return accounts
 
 
-def parse_jobs(filename: str) -> List[Dict[str, str]]:
+def parse_jobs(filename: str) -> list[dict[str, str]]:
     """
     read new job info from a file
     @param filename: name of file to read from
     @return: list of parsed jobs
     """
     job_path: Path = Path(filename)
-    jobs: List[Dict[str, str]] = list()
+    jobs: list[dict[str, str]] = list()
     if job_path.exists():
         with open(job_path, 'r') as file:
             has_next: bool = True
             while has_next:
                 job = dict()
                 try:
-                    job["title"]: str = file.readline().strip()
+                    job["title"] = file.readline().strip()
                     job["description"] = str()
                     line = file.readline()
                     while line and line != "&&&\n":
                         job["description"] += line
                         line = file.readline()
-                    job["poster"]: str = file.readline().strip()
-                    job["employer"]: str = file.readline().strip()
-                    job["location"]: str = file.readline().strip()
-                    job["salary"]: str = file.readline().strip()
+                    job["poster"] = file.readline().strip()
+                    job["employer"] = file.readline().strip()
+                    job["location"] = file.readline().strip()
+                    job["salary"] = file.readline().strip()
                     end: str = file.readline().strip()
                 except ValueError:
                     logging.error("Invalid new job file format")
@@ -88,7 +88,7 @@ def parse_jobs(filename: str) -> List[Dict[str, str]]:
     return jobs
 
 
-def parse_trainings(filename: str) -> List[str]:
+def parse_trainings(filename: str) -> list[str]:
     """
     read training info from file
     @param filename: name of file to read from
@@ -108,7 +108,7 @@ def create_account_api() -> None:
     """
     create student accounts for api
     """
-    accounts: List[Dict[str, str]] = parse_accounts(STUDENT_ACC_FILE)
+    accounts: list[dict[str, str]] = parse_accounts(STUDENT_ACC_FILE)
     for account in accounts:
         if get_user_count() < MAX_USER_COUNT:
             if is_unique_username(account["username"]) and is_valid_password(account["password"]):
@@ -119,25 +119,28 @@ def create_account_api() -> None:
             else:
                 logging.error("Invalid username or password")
         else:
-            logging.error(f"Max number of users ({MAX_USER_COUNT}) reached. Ignoring account")
+            logging.error(
+                f"Max number of users ({MAX_USER_COUNT}) reached. Ignoring account")
 
 
 def create_job_api() -> None:
     """
     create new job posts for api
     """
-    jobs: List[Dict[str, str]] = parse_jobs(NEW_JOBS_FILE)
+    jobs: list[dict[str, str]] = parse_jobs(NEW_JOBS_FILE)
     for i, job in enumerate(jobs):
         if number_job_rows() < MAX_JOB_COUNT:
             if is_user(job["poster"]):
                 job_entry(i+1, job["poster"], job["title"],
                           job["description"], job["employer"],
                           job["location"], job["salary"])
-                logging.info(f"Posted new job: {job['title']} by {job['poster']}")
+                logging.info(
+                    f"Posted new job: {job['title']} by {job['poster']}")
             else:
                 logging.error("Job poster is not a user")
         else:
-            logging.error(f"Max number of jobs ({MAX_JOB_COUNT}) reached. Ignoring job")
+            logging.error(
+                f"Max number of jobs ({MAX_JOB_COUNT}) reached. Ignoring job")
 
 
 def create_training_api() -> None:
@@ -172,12 +175,12 @@ def run_input_api() -> None:
     logging.info("Execution End\n\n")
 
 
-def parse_profiles(filename: str) -> List[str]:
-    return 1    #PLACEHOLDER
+def parse_profiles(filename: str) -> list[str]:
+    return 1  # PLACEHOLDER
 
 
 def create_profile_api() -> None:
-    return 2    #PLACEHOLDER
+    return 2  # PLACEHOLDER
 
 
 if __name__ == '__main__':
