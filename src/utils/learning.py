@@ -16,7 +16,7 @@ def get_courses(user):
 
 
 def insert_course(course, user):
-    query: str = "INSERT INTO Courses VALUES (?, ?)"
+    query: str = "INSERT INTO Courses (username, course) VALUES (?, ?)"
     data = (user, course)
     c.execute(query, data)
 

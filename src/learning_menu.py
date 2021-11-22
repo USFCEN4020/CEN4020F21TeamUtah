@@ -1,12 +1,8 @@
 from typing import Callable
-from src.utils.learning import set_course_completed
 from utils.learning import get_courses, insert_course, set_course_completed
 from utils.menu import Menu
 from utils.user import get_user
-from db.db import get_db
 from colorama import Fore, Style
-
-db = get_db()
 
 
 class LearningMenu(Menu):
@@ -17,7 +13,7 @@ class LearningMenu(Menu):
 
         # database variables
         course_setup()
-        self.username = get_username()
+        self.username = get_user()
         self.courses = [course[0] for course in get_courses()]
         self.update_courses()
         self.courses_with_status = dict()
@@ -31,19 +27,19 @@ class LearningMenu(Menu):
 
     def read_db(self) -> None:
         """read course status from db"""
-        self.username = get_user()
-        courses = get_courses()
+        courses = get_courses(self.username)
 
-        if courses:
-            completed: str = f"{Fore.GREEN}(Completed) {Style.RESET_ALL}"
-            not_completed: str = f"{Fore.RED}(Not Completed) {Style.RESET_ALL}"
-            for course, status in courses:
-                self.courses_with_status[(
-                    f"{completed if status else not_completed}{course}")] = (course, status)
-        else:
+        if not courses:
             for course in self.courses:
                 insert_course(course, self.username)
-            db.commit()
+
+        courses = get_courses(self.username)
+
+        completed: str = f"{Fore.GREEN}(Completed) {Style.RESET_ALL}"
+        not_completed: str = f"{Fore.RED}(Not Completed) {Style.RESET_ALL}"
+        for course, status in courses:
+            self.courses_with_status[(
+                f"{completed if status else not_completed}{course}")] = (course, status)
 
     def complete_course(self, course, status) -> Callable:
         """wrapper for complete course callable"""
